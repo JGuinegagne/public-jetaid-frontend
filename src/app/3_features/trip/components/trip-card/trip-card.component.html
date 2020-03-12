@@ -1,0 +1,56 @@
+<div class="card card-jetaid bg-transparent">
+  <div class="card-body" (click)="toggleDetails()">
+    <div class="row mb-2
+                align-items-start 
+                justify-content-between 
+                bg-translucid 
+                rounded-lg">
+
+      <app-title-section 
+        [title]="title()" 
+        [subTitle]="subTitle()"
+        [iconRef]="this.iconRef()">
+      </app-title-section>
+
+      <div class="col-auto mt-2 my-sm-0 my-2 px-2 px-2">
+        <div class="btn-group-vertical float-sm-right">
+          <button 
+            *ngIf="this.editable" 
+            class="btn btn-info btn-block" 
+            (click)="notify()">
+            {{buttons('edit')}}
+          </button>
+        </div>         
+      </div>
+    </div>
+    
+    <div  *ngFor="let via of this.trip.vias; let i = index"
+          [ngClass]="{'row': true, 'mb-2': i<this.trip.vias.length-1}">
+
+      <div class="col-auto pl-0 pr-2">
+        <app-date-badge 
+          [date]="via.depDate">
+        </app-date-badge>
+      </div>
+
+      <div class="col">
+        <app-via-summary-section 
+          [viaLike]="via">
+        </app-via-summary-section>
+      </div>
+    </div>
+
+  </div>
+
+  <div *ngIf="this.showDetails" class="card-body">
+    <app-via-section
+      *ngFor="let via of this.trip.vias"
+      [via]="via"
+      [viaCaption]="this.viaCaption(via)"
+      [definer]="this.definer">
+    </app-via-section>
+  </div>
+
+</div>
+
+

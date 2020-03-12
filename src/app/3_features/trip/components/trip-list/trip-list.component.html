@@ -1,0 +1,24 @@
+<div>
+  <app-collapse-section
+    *ngIf="trips.length > 0"
+    [title]="this.definer.title"
+    [collapsed]="this.collapsed"
+    (notifier)="toggleCollapse($event)">
+  </app-collapse-section>
+
+  <div *ngIf="!this.collapsed">
+    <div *ngFor="let trip of trips" class="py-2">
+      <app-trip-card 
+        [trip]="trip"
+        [definer]="this.definer"
+        [editable]="true"
+        [showDetails]="false"
+        (notifier)="this.handleSelect($event)">
+      </app-trip-card>
+    </div>
+  </div>
+
+  <div *ngIf="this.collapsed" class="mb-2">
+  </div>
+
+</div>

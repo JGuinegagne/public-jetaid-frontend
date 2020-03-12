@@ -1,0 +1,64 @@
+<div [ngSwitch]="definer.sectionClass">
+
+  <app-rider-list 
+    *ngSwitchCase="'USER_RIDERS'"
+    [definer]="this.definer"
+    [riders]="this.target$ | async"
+    [activeRiderIds]="this.target2$ | async">
+  </app-rider-list>
+
+  <app-page-header
+    *ngSwitchCase="'HEADER'"
+    [definer]="this.definer"
+    [customLink]="this.target$ | async">
+  </app-page-header>
+
+  <app-rider-members-form
+    *ngSwitchCase="'RIDER_MEMBERS'"
+    [definer]="this.definer"
+    [rider]="target$ | async"
+    [travelers]="target2$ | async">
+  </app-rider-members-form>
+
+  <app-rider-change-location
+    *ngSwitchCase="'RIDER_LOC'"
+    [definer]="this.definer"
+    [rider]="this.target$ | async">
+  </app-rider-change-location>
+
+  <app-choice-list
+    *ngSwitchCase="'CHOICE_LIST'"
+    [options]="target$ | async"
+    [link]="target2$ | async"
+    (notifier)="handleChoice($event)">
+  </app-choice-list>
+
+  <app-rider-validate-form
+    *ngSwitchCase="'RIDER_VALIDATE'"
+    [rider]="this.target$ | async"
+    [definer]="this.definer"
+    (notifier)="handleRiderChange($event)">
+  </app-rider-validate-form>
+
+  <app-rider-init-form
+    *ngSwitchCase="'RIDER_INITIATE'"
+    [rider]="this.target$ | async"
+    [definer]="this.definer">
+  </app-rider-init-form>
+
+  <app-rider-card
+    *ngSwitchCase="'RIDER'"
+    [rider]="this.target$ | async"
+    [definer]="this.definer"
+    [showDetails]="true"
+    [editable]="true">
+  </app-rider-card>
+
+  <app-password-confirm-card 
+    *ngSwitchCase="'PASSWORD_CONFIRM'"
+    [definer]="definer"
+    [incorrectPassword]="this.incorrectPassword"
+    (notifier)="this.handlePasswordConfirm($event)">
+  </app-password-confirm-card >
+
+</div>

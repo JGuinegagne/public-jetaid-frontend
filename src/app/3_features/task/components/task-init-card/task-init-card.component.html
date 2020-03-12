@@ -1,0 +1,223 @@
+<div  [formGroup]="form" 
+      (ngSubmit)="toggleConfirm()" 
+      class="card card-jetaid bg-transparent">
+  <div class="card-body">
+  
+    <div [ngClass]="{
+      'row justify-content-between rounded-lg py-2': true,
+      'bg-translucid': !this.confirmed,
+      'bg-translucid-success': this.confirmed
+    }">
+      <app-title-section 
+        [title]="title()" 
+        [subTitle]="subTitle()"
+        [iconRef]="iconRef()">
+      </app-title-section>
+
+      <div class="col-auto align-self-center mt-sm-0 mt-2">
+        <div class="btn-group-vertical float-sm-right">
+          <button *ngIf="this.showConfirm" 
+                  class="btn btn-info" 
+                  (click)="toggleConfirm()">
+            {{variableButtons('confirm')}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!this.confirmed" class="card-body mt-1">
+    <form [formGroup]="form" novalidate>
+
+      <div class="row rounded-lg bg-translucid py-2">
+        <div class="col">
+
+          <div class="form-row mb-2">
+            <div class="col-sm-3 align-self-center">
+              <strong>{{header('depAirports')}}</strong>
+            </div>
+
+            <div class="col-sm-9 align-self-center">
+              <div class="form-row">
+                <span class="d-inline mr-2 align-self-center">
+                  <button class="btn btn-info btn-sm" 
+                          (click)="addDepAirport()" 
+                          type="button">
+                    {{buttons('add')}}
+                  </button>
+                </span>
+      
+                <div class="d-inline align-self-center">
+                  <app-airport-search 
+                    [placeholder]="this.placeholder('depAirport')"
+                    [errorMsg]="this.errorMsg('depAirport')"
+                    [searchMsg]="this.errorMsg('searching')"
+                    [initialCode]="this.initDepAirportCode"
+                    (notifier)="this.handleDepAirportNotice($event)">
+                  </app-airport-search>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+          <div class="form-row mb-2">
+            <div class="col-sm-3">
+            </div>
+
+            <div class="col-sm-9 align-self-center">
+              <div *ngIf="depAirports.length > 0" class="mt-1 mb-1">
+                <div *ngFor="let airport of depAirports" class="form-row my-1">
+                  <span class="d-inline mr-2 align-self-center">
+                    <button class="btn btn-info btn-sm" 
+                            (click)="removeDepAirport(airport)"
+                            type="button">
+                      {{buttons('remove')}}
+                    </button>  
+                  </span>
+
+                  <div class="d-inline align-self-center">{{airport.selectionLabel()}}</div>
+                </div>
+              </div>
+            </div>        
+          </div>
+
+
+
+          <div class="form-row mb-2">
+            <div class="col-sm-3 align-self-center">
+              <strong>{{header('arrAirports')}}</strong>
+            </div>
+
+            <div class="col-sm-9 align-self-center">
+              <div class="form-row">
+                <span class="d-inline mr-2 align-self-center">
+                  <button class="btn btn-info btn-sm" 
+                          (click)="addArrAirport()" 
+                          type="button">
+                    {{buttons('add')}}
+                  </button>
+                </span>
+      
+                <div class="d-inline align-self-center">
+                  <app-airport-search 
+                    [placeholder]="this.placeholder('arrAirport')"
+                    [errorMsg]="this.errorMsg('arrAirport')"
+                    [searchMsg]="this.errorMsg('searching')"
+                    [initialCode]="this.initArrAirportCode"
+                    (notifier)="this.handleArrAirportNotice($event)">
+                  </app-airport-search>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+          <div class="form-row mb-2">
+            <div class="col-sm-3">
+            </div>
+
+            <div class="col-sm-9 align-self-center">
+              <div *ngIf="arrAirports.length > 0" class="mt-1 mb-1">
+                <div *ngFor="let airport of arrAirports" class="form-row my-1">
+                  <span class="d-inline mr-2 align-self-center">
+                    <button class="btn btn-info btn-sm" 
+                            (click)="removeArrAirport(airport)"
+                            type="button">
+                      {{buttons('remove')}}
+                    </button>  
+                  </span>
+
+                  <div class="d-inline align-self-center">{{airport.selectionLabel()}}</div>
+                </div>
+              </div>
+            </div>        
+          </div>
+
+
+          <div class="form-row mt-2">
+            <div class="col-sm-3 align-self-start">
+              <strong>{{header('dateRange')}}</strong>
+            </div>
+
+            <div class="col-sm-9 align-self-start">
+              <div class="form-row">
+                <div class="form-group">
+                  <div class="input-group">
+                    <input name="datepicker"
+                          class="form-control d-none"
+                          ngbDatepicker
+                          #datepicker="ngbDatepicker"
+                          [autoClose]="'outside'"
+                          [placement]="'top'"
+                          (dateSelect)="onDateSelection($event)"
+                          [displayMonths]="2"
+                          [dayTemplate]="t"
+                          outsideDays="hidden"
+                          [startDate]="popUpDate()">
+                    <ng-template #t let-date let-focused="focused">
+                      <span class="custom-day"
+                            [class.focused]="focused"
+                            [class.range]="isRange(date)"
+                            [class.faded]="isHovered(date) || isInside(date)"
+                            (mouseenter)="readHoveredDate(date)"
+                            (mouseleave)="hoveredDate = null">
+                        {{ date.day }}
+                      </span>
+                    </ng-template>
+                  </div>
+                </div>
+
+      
+                <div class="col-sm-6 align-self-center">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input #dpFromDate
+                              class="form-control" placeholder="yyyy-mm-dd"
+                              name="dpFromDate"
+                              formControlName="earliestDate"
+                              [value]="formatDate(fromDate)"
+                              (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" 
+                                (click)="datepicker.toggle()" 
+                                type="button">
+                          📅
+                        </button>
+                      </div>
+                    </div>
+                    <div *ngIf="hasError('dateRange')"class="invalid-feedback d-block">
+                      {{errorMsg('dateRange')}}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 align-self-center">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input #dpToDate
+                              class="form-control" placeholder="yyyy-mm-dd"
+                              name="dpToDate"
+                              formControlName="latestDate"
+                              [value]="formatDate(toDate)"
+                              (input)="toDate = validateInput(toDate, dpToDate.value)">
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" 
+                                (click)="datepicker.toggle()" 
+                                type="button">
+                          📅
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

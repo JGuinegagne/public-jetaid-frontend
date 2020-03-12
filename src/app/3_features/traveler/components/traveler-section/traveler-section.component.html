@@ -1,0 +1,37 @@
+<div class="pl-2">
+  <a *ngIf="hasLink()"
+      routerLink="{{this.link}}" 
+      class="text-decoration-none text-reset"
+      id="link">
+    <div class="item">
+      <span *ngIf="hasNotice()" class="badge badge-info notify-badge">
+        {{this.noticeCount}}
+      </span>
+      <i class="material-icons md-48 text-info">
+        person_pin
+      </i>
+    </div>
+    
+    <small class="text-center d-block">{{this.caption()}}</small>
+    <small *ngIf="hasSubCaption()"
+          class="text-center d-block">
+      {{this.subCaption}}
+    </small>
+  </a>
+
+  <div *ngIf="!hasLink()">
+    <div class="item">
+      <span *ngIf="hasNotice()" class="badge badge-info notify-badge">
+        {{this.noticeCount}}
+      </span>
+      <i class="material-icons md-48 text-info">
+        person_pin
+      </i>
+    </div>   
+    <small class="text-center d-block">{{this.caption()}}</small>
+    <small *ngIf="hasSubCaption()"
+          class="text-center d-block">
+      {{this.subCaption}}
+    </small>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="card card-jetaid bg-transparent">
+  <div class="card-body">
+    <div class="row justify-content-between bg-translucid rounded-lg py-2">
+      <app-title-section 
+        [title]="title()" 
+        [subTitle]="subTitle()"
+        [iconRef]="iconRef()">
+      </app-title-section>
+
+      <div class="col-auto align-self-center mt-sm-0 mt-2">
+        <div class="btn-group-vertical float-sm-right">
+          <button *ngIf="this.editable" class="btn btn-info btn-block" (click)="notify()">
+            {{buttons('edit')}}
+          </button>
+        </div> 
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div *ngIf="this.showInfo()" class="row mt-1">
+  <div class="col-auto pl-0 pr-2">
+    <app-date-badge 
+      [date]="partialVia.depDate">
+    </app-date-badge>
+  </div>
+
+  <div class="col ml-1 pl-2">
+    <div class="row bg-translucid rounded-lg h-100 text-uppercase py-2">
+      <div class="col-auto pr-sm-0 pr-2">
+        <span class="font-weight-bold text-nowrap">
+          {{this.depAirportLbl()}} &nbsp; {{this.depTimeLbl()}}
+        </span>
+      </div>
+
+      <div class="col-auto d-sm-flex d-none">
+        <i class="material-icons font-weight-bold">arrow_forward</i>
+      </div>
+
+      <div class="col">
+        <span class="font-weight-bold text-nowrap">
+          {{this.arrAirportLbl()}} &nbsp; {{this.arrTimeLbl()}}
+        </span>
+      </div>
+    </div>
+  </div>
+
+</div>
+

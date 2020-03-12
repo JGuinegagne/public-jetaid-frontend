@@ -1,0 +1,13 @@
+<div *ngIf="this.showNotices()" class="mt-0 mb-4">
+
+  <div *ngFor="let group of this.displayGroups()" class="py-0">
+    <app-task-group-card
+      [group]="group"
+      [membersMap]="this.membersMap">
+    </app-task-group-card>
+
+  </div>
+</div>
+
+
+

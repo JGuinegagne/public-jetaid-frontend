@@ -1,0 +1,40 @@
+<div [ngClass]="{
+  'card card-jetaid bg-transparent': true
+}">
+  <div class="card-body">
+    <div class="row py-1
+                align-items-start 
+                justify-content-between 
+                bg-translucid 
+                rounded-lg">
+      
+      <app-title-section 
+        [title]="title()" 
+        [subTitle]="subTitle()"
+        [iconRef]="this.iconRef()">
+      </app-title-section>
+    </div>
+  </div>
+
+    
+  <!-- <div class="card-body mt-2">
+
+    <div class="row bg-translucid rounded-lg">
+      <div class="col">
+
+        <div class="row">
+          <div class="col-sm-3">
+            <strong>{{header('email')}}</strong>
+          </div>
+          <div class="col-sm-9">
+              {{email()}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div> -->
+
+</div>
+
+

@@ -1,0 +1,32 @@
+
+<div class="row pt-4 justify-content-center">
+  <div class="col justify-self-center">
+    
+    <div *ngFor="let section of sections">
+      <div [ngSwitch]="section.sectionModule">
+        
+        <app-home-dispatcher
+          *ngSwitchCase="'HOME'"
+          [definer]="section">
+        </app-home-dispatcher>
+
+        <app-menu-dispatch 
+          *ngSwitchCase="'MENU'"
+          [definer]="section">
+        </app-menu-dispatch>
+
+        <app-user-profile-dispatch
+          *ngSwitchCase="'USER_PROFILE'"
+          [definer]="section">
+        </app-user-profile-dispatch>
+      
+      </div>
+    </div>
+
+    <div style="height: 20vh;"></div>
+  </div>   
+</div>
+
+
+
+

@@ -1,0 +1,30 @@
+<div>
+  <div *ngIf="this.members.length > 0">
+    <div *ngFor="let member of members" class="py-2">  
+      <app-member-card
+        [member]="member"
+        [definer]="this.definer"
+        [selectable]="this.actionable || this.redirectable"
+        (notifier)="this.handleMemberNotice($event)">
+      </app-member-card>
+    </div>
+  </div>
+
+  <div *ngIf="this.volunteers.length > 0">
+    <div *ngFor="let volunteer of volunteers" class="py-2">
+      <app-volunteer-card
+        [volunteer]="volunteer"
+        [definer]="this.definer"
+        [selectable]="this.actionable || this.redirectable"
+        (notifier)="this.handleVolunteerNotice($event)">
+      </app-volunteer-card>
+    </div>
+  </div>
+
+  <app-message-section 
+    *ngIf="this.members.length + this.volunteers.length === 0"
+    [definer]="this.definer"
+    [title]="definer.labels.msgTitle"
+    [subTitle]="definer.labels.msgText">
+  </app-message-section > 
+<div>

@@ -1,0 +1,98 @@
+<div [ngSwitch]="definer.sectionClass">
+
+  <app-page-header 
+    *ngSwitchCase="'HEADER'"
+    [definer]="definer"
+    [overrider]="target$ | async">
+  </app-page-header>
+
+  <app-travelers-list 
+    *ngSwitchCase="'USER_TRAVELERS'"
+    [definer]="this.definer"
+    [travelers]="this.target$ | async"
+    [editable]="true"
+    [showCollapse]="!this.isSelfMenu()">
+  </app-travelers-list>
+
+  <app-other-list 
+    *ngSwitchCase="'PROFILE_INFOS'"
+    [definer]="this.definer">
+  </app-other-list>
+
+  <app-traveler-profile-card
+    *ngSwitchCase="'TRAVELER'"
+    [definer]="this.definer"
+    [traveler]="this.target$ | async"
+    (fetchNotifier)="travelerProfileNotice($event)"
+    (changeNotifier)="travelerChangeNotice($event)"
+    [lockSelf]="this.isSelfMenu()">
+  </app-traveler-profile-card>
+
+  <app-address-change-card
+    *ngSwitchCase="'ADDRESS'"
+    [definer]="this.definer"
+    [address]="this.target$ | async"
+    (changeNotifier)="addressChangeNotice($event)">
+  </app-address-change-card>
+
+  <app-phone-change-card
+    *ngSwitchCase="'PHONE'"
+    [definer]="this.definer"
+    [phone]="this.target$ | async"
+    (changeNotifier)="phoneChangeNotice($event)">
+  </app-phone-change-card>
+
+  <app-email-change-card
+    *ngSwitchCase="'EMAIL'"
+    [definer]="this.definer"
+    [email]="this.target$ | async"
+    (changeNotifier)="emailChangeNotice($event)">
+  </app-email-change-card>
+
+  <app-password-confirm-card 
+    *ngSwitchCase="'PASSWORD_CONFIRM'"
+    [definer]="definer"
+    [incorrectPassword]="this.incorrectPassword"
+    (notifier)="this.handlePasswordConfirm($event)">
+  </app-password-confirm-card >
+
+  <app-login-card 
+    *ngSwitchCase="'EMAIL_PASSWORD'"
+    [definer]="definer"
+    [incorrectPassword]="this.incorrectPassword"
+    [unknownEmail]="this.unknownEmail"
+    (notifier)="this.handleEmailPasswordConfirm($event)">
+  </app-login-card>
+
+  <div *ngSwitchCase="'INLINE_LINK'" class="no-sizing">
+    <app-text-line-button 
+      *ngIf="this.displayCard() | async"
+      [title]="definer.title"
+      [subTitle]="definer.subTitle"
+      [spaced]="true"
+      [link]="this.target$ | async">
+    </app-text-line-button >
+  </div>
+
+  <div *ngSwitchCase="'DIVIDER'" class="no-sizing">
+    <app-divider-section
+      *ngIf="this.displayCard() | async"
+      [title]="definer.title"
+      [subTitle]="definer.subTitle">
+    </app-divider-section >
+  </div>
+
+  <app-confirm-card 
+    *ngSwitchCase="'CONFIRM'"
+    [definer]="definer"
+    (notifier)="this.handleConfirm($event)">
+  </app-confirm-card>
+
+  <app-change-alias-card
+    *ngSwitchCase="'CHANGE_ALIAS'"
+    [definer]="definer"
+    [defaultAlias]="this.target$ | async"
+    (notifier)="this.handleAliasChange($event)">
+  </app-change-alias-card>
+
+</div>

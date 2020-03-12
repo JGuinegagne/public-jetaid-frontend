@@ -1,0 +1,30 @@
+<div>
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <input 
+        type="text" 
+        class="form-control mb-2" 
+        (keydown.enter)="$event.preventDefault()" 
+        placeholder="Type address..." 
+        autocorrect="off" 
+        autocapitalize="off" 
+        spellcheck="off" 
+        #searchBar>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <agm-map
+      [latitude]="latitude"
+      [longitude]="longitude"
+      [zoom]="zoom">
+        <agm-marker
+          [latitude]="latitude"
+          [longitude]="longitude"
+          [markerDraggable]="true"
+          (dragEnd)="markerDragEnd($event)">
+        </agm-marker>
+      </agm-map>
+    </div>
+  </div>
+</div>

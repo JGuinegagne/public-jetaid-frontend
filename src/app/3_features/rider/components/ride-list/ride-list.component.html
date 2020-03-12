@@ -1,0 +1,105 @@
+<div>
+  <div *ngIf="this.scheduledRides.length > 0" class="mb-5">
+
+    <app-collapse-section
+      [title]="header('scheduledRides')"
+      [collapsed]="this.scheduledCollapsed"
+      (notifier)="toggleScheduledCollapse($event)">
+    </app-collapse-section>
+
+    <div *ngIf="!this.scheduledCollapsed">
+      <app-ride-card
+        *ngFor="let ride of this.scheduledRides"
+        [ride]="ride"
+        [definer]="this.definer"
+        [selectable]="this.selectable"
+        (notifier)="this.handleNotice($event)">
+      </app-ride-card>
+    </div>
+  </div>
+
+
+  <div *ngIf="this.pendingRides.length > 0" class="mb-5">
+    <app-collapse-section
+      [title]="header('pendingRides')"
+      [collapsed]="this.pendingCollapsed"
+      (notifier)="togglePendingCollapse($event)">
+    </app-collapse-section>
+
+    <div *ngIf="!this.pendingCollapsed">
+      <app-ride-card
+        *ngFor="let ride of this.pendingRides"
+        [ride]="ride"
+        [definer]="this.definer"
+        [selectable]="this.selectable"
+        (notifier)="this.handleNotice($event)">
+      </app-ride-card>
+    </div>
+  </div>
+
+
+  <div *ngIf="this.openRides.length > 0" class="mb-5">
+    <app-collapse-section
+      [title]="header('openRides')"
+      [collapsed]="this.openCollapsed"
+      (notifier)="toggleOpenCollapse($event)">
+    </app-collapse-section>
+
+    <div *ngIf="!this.openCollapsed">
+      <app-ride-card
+        *ngFor="let ride of this.openRides"
+        [ride]="ride"
+        [definer]="this.definer"
+        [selectable]="this.selectable"
+        (notifier)="this.handleNotice($event)">
+      </app-ride-card>
+    </div>
+  </div>
+
+
+  <div *ngIf="this.savedRides.length > 0" class="mb-5">
+    <app-collapse-section
+      [title]="header('savedRides')"
+      [collapsed]="this.savedCollapsed"
+      (notifier)="toggleSavedCollapse($event)">
+    </app-collapse-section>
+
+    <div *ngIf="!this.savedCollapsed">
+      <app-ride-card
+        *ngFor="let ride of this.savedRides"
+        [ride]="ride"
+        [definer]="this.definer"
+        [selectable]="this.selectable"
+        (notifier)="this.handleNotice($event)">
+      </app-ride-card>
+    </div>
+  </div>
+
+
+  <div *ngIf="this.availableRides.length > 0" class="mb-5">
+    <app-collapse-section
+      [title]="header('availableRides')"
+      [collapsed]="this.availableCollapsed"
+      (notifier)="toggleAvailableCollapse($event)">
+    </app-collapse-section>
+
+    <div *ngIf="!this.availableCollapsed">
+      <app-ride-card
+        *ngFor="let ride of this.availableRides"
+        [ride]="ride"
+        [definer]="this.definer"
+        [selectable]="this.selectable"
+        (notifier)="this.handleNotice($event)">
+      </app-ride-card>
+    </div>
+  </div>
+
+  <app-message-section 
+    *ngIf="this.hasNoResult()"
+    [definer]="this.definer"
+    [title]="definer.labels.msgTitle"
+    [subTitle]="definer.labels.msgText">
+  </app-message-section> 
+
+</div>
+

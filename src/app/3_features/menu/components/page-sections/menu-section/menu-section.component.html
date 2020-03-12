@@ -1,0 +1,42 @@
+
+<div class= "card link-jetaid bg-transparent mt-1 mb-4">
+    <a routerLink="{{this.link}}" 
+    class="text-decoration-none text-reset"
+    id="link">
+
+      <div class="card-body">
+        <div class="row align-items-center text-muted">
+
+          <div [ngSwitch]="definer.sectionType" class="col-sm-2 col-3 align-self-center">
+            <i *ngSwitchCase="'ICON_ACCOUNT'" class="material-icons-outlined md-36">account_circle</i>
+            <i *ngSwitchCase="'ICON_TRAVELER'" class="material-icons-outlined md-36">portrait</i>
+            <i *ngSwitchCase="'ICON_TASK'" class="material-icons-outlined md-36">people_outline</i>
+            <i *ngSwitchCase="'ICON_CAR'" class="material-icons-outlined md-36">directions_car</i>
+            <i *ngSwitchCase="'ICON_TAXI'" class="material-icons-outlined md-36">local_taxi</i>
+            <i *ngSwitchCase="'ICON_PLANE'" class="material-icons-outlined md-36">flight</i>
+            <i *ngSwitchCase="'ICON_TAKEOFF'" class="material-icons-outlined md-36">flight_takeoff</i>
+            <i *ngSwitchCase="'ICON_LAND'" class="material-icons-outlined md-36">flight_land</i>
+            <i *ngSwitchCase="'ICON_ADDRESS'" class="material-icons-outlined md-36">location_on</i>
+            <i *ngSwitchCase="'ICON_PHONE'" class="material-icons-outlined md-36">phone_android</i>
+            <i *ngSwitchCase="'ICON_EMAIL'" class="material-icons-outlined md-36">alternate_email</i>
+            <i *ngSwitchCase="'ICON_GEAR'" class="material-icons-outlined md-36">settings</i>
+            <i *ngSwitchCase="'ICON_LOGOUT'" class="material-icons-outlined md-36">exit_to_app</i>
+            <i *ngSwitchCase="'ICON_BIN'" class="material-icons-outlined md-36">delete</i>
+            <i *ngSwitchCase="'ICON_LOCK'" class="material-icons-outlined md-36">lock</i>
+            <i *ngSwitchCase="'ICON_LABEL'" class="material-icons-outlined md-36">insert_comment</i>
+            <i *ngSwitchCase="'ICON_GEAT'" class="material-icons-outlined md-36">settings</i>
+          </div>
+
+          <div class="col">
+            <h3 class="font-weight-bold mb-1 text-lowercase">{{this.title()}}</h3>
+            <p  *ngIf="this.hasSubTitle()" class="text-muted my-1 text-lowercase">
+                <small>{{this.subTitle()}}</small>
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+  </a>
+
+</div>

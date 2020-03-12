@@ -1,0 +1,60 @@
+<div>
+  
+  <div *ngIf="this.potentialRiders.length > 0">
+    <app-collapse-section
+      [title]="header('potentialRiders')"
+      [collapsed]="this.potentialCollapsed"
+      (notifier)="togglePotentialCollapse($event)">
+    </app-collapse-section>
+
+    <div *ngIf="!this.potentialCollapsed">
+      <app-rider-choose-card
+        *ngFor="let rider of potentialRiders"
+        [rider]="rider"
+        [definer]="this.definer">
+      </app-rider-choose-card>
+    </div>
+  </div>
+
+
+  <div *ngIf="this.viaRiders.length > 0">
+    <app-collapse-section
+      [title]="header('viaRiders')"
+      [collapsed]="this.viaCollapsed"
+      (notifier)="toggleViaCollapse($event)">
+    </app-collapse-section>
+
+    <div *ngIf="!this.viaCollapsed">
+      <app-rider-card
+        *ngFor="let rider of viaRiders"
+        [rider]="rider"
+        [definer]="this.definer"
+        [editable]="this.editable"
+        [selectable]="this.selectable"
+        (notifier)="this.handleNotice($event)">
+      </app-rider-card>
+    </div>
+  </div>
+
+
+  <div *ngIf="this.otherRiders.length > 0">
+    <app-collapse-section
+      [title]="header('viaRiders')"
+      [collapsed]="this.otherCollapsed"
+      (notifier)="toggleOtherCollapse($event)">
+    </app-collapse-section>
+
+    <div *ngIf="!this.otherCollapsed">
+      <app-rider-card
+        *ngFor="let rider of otherRiders"
+        [rider]="rider"
+        [definer]="this.definer"
+        [editable]="this.editable"
+        [selectable]="this.selectable"
+        (notifier)="this.handleNotice($event)">
+      </app-rider-card>
+    </div>
+  </div>
+
+<div>
+

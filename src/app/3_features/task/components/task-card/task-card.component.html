@@ -1,0 +1,202 @@
+<div [ngClass]="{
+  'card card-jetaid bg-transparent': true
+}">
+  <div class="card-body" (click)="toggleDetails()">
+    <div class="row py-1
+                align-items-start 
+                justify-content-between 
+                bg-translucid 
+                rounded-lg">
+      
+      <app-title-section 
+        [title]="title()" 
+        [subTitle]="subTitle()"
+        [noticeCount]="this.noticeCount()">
+      </app-title-section>
+
+      <div class="col-auto mt-2 my-sm-0 my-2 px-sm-0 px-2">
+        <div class="btn-group-vertical">
+          <button 
+            *ngIf="this.editable" 
+            class="btn btn-info btn-block" 
+            (click)="edit()">
+            {{button('edit')}}
+          </button>
+        </div>         
+      </div>
+    </div>
+
+
+    <div  *ngIf="this.hasNotices() && this.showDetails" 
+          class="row mt-2 bg-translucid-notice rounded-lg">
+      
+      <div class="col-sm-3">
+        <strong>{{header('notices')}}</strong>
+      </div>
+
+      <div class="col-sm-9">
+        <app-task-notice-list
+          [taskNotices]="this.taskNotices"
+          [membersMap]="this.membersMap">
+        </app-task-notice-list>
+      </div>
+    </div>
+
+
+    <div  *ngIf="!this.task.isProvisional()" class="row mt-2">
+        <div class="col-auto pl-0 pr-2">
+          <app-date-badge 
+            [date]="this.task.depDate">
+          </app-date-badge>
+        </div>
+
+        <div class="col">
+          <app-via-summary-section 
+            [viaLike]="this.task">
+          </app-via-summary-section>
+        </div>
+    </div>
+
+
+    <div  *ngIf="this.task.isProvisional()" class="row mt-2">
+      <div class="col-auto pl-0 pr-2">
+        <app-date-badge 
+          [date]="this.task.earliestDate">
+        </app-date-badge>
+      </div>
+
+      <div class="col-auto pl-0 pr-2">
+        <app-date-badge 
+          [date]="this.task.latestDate">
+        </app-date-badge>
+      </div>
+
+      <div class="col">
+        <app-provisional-summary-section 
+          [depAirports]="this.task.depAirports"
+          [arrAirports]="this.task.arrAirports"
+          [travelers]="this.task.helpees">
+        </app-provisional-summary-section>
+      </div>
+
+    </div>
+  </div>
+
+  
+  <div *ngIf="this.showDetails" class="card-body mt-2">
+
+    <div class="row bg-translucid rounded-lg">
+      <div class="col">
+
+        <div class="row">
+          <div class="col-sm-3">
+            <strong>{{header('start')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            <div *ngFor="let line of this.task.startLocList()" class="d-block">
+              {{line}}
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-sm-3">
+            <strong>{{header('end')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            <div *ngFor="let line of this.task.endLocList()" class="d-block">
+              {{line}}
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-sm-3">
+            <strong>{{header('time')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            <div class="d-block">{{this.task.inlineStartDateTime()}}</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="row bg-translucid rounded-lg mt-1">
+      <div class="col-sm-3">
+        <strong>{{header('taskType')}}</strong>
+      </div>
+      <div class="col-sm-9">
+        <div class="d-block">{{this.task.inlineTaskType()}}</div>
+      </div>
+    </div>
+    
+    <div class="row bg-translucid rounded-lg mt-1">
+      <div class="col">
+
+        <div class="row mt-2 py-2">
+          <div class="col-sm-3">
+            <strong>{{header('helpees')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            <div class="row justify-content-start">
+              <div *ngFor="let helpee of this.task.helpees">
+                <app-traveler-section [traveler]="helpee">
+                </app-traveler-section>
+              </div>
+            </div>      
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row bg-translucid rounded-lg mt-1">
+      <div class="col">
+
+        <div *ngIf="showHelpers()" class="row mt-2 py-2">
+          <div class="col-sm-3">
+            <strong>{{header('helpers')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            <div class="row justify-content-start">
+              <div *ngFor="let helper of this.helpers()">
+                <app-traveler-section 
+                  [traveler]="helper.traveler"
+                  [subCaption]="helper.statusCaption()"
+                  [link]="taskerLink(helper)"
+                  [noticeCount]="taskerNotices(helper)">
+                </app-traveler-section>
+              </div>
+            </div>      
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row bg-translucid rounded-lg mt-1">
+      <div class="col">
+
+        <div *ngIf="showNonTaskers()" class="row mt-2 py-2">
+          <div class="col-sm-3">
+            <strong>{{header('nonTaskers')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            <div class="row justify-content-start">
+              <div *ngFor="let nonTasker of this.nonTaskers()">
+                <app-traveler-section 
+                  [traveler]="nonTasker.traveler"
+                  [subCaption]="nonTasker.statusCaption()"
+                  [link]="taskerLink(nonTasker)"
+                  [noticeCount]="taskerNotices(nonTasker)">
+                </app-traveler-section>
+              </div>
+            </div>      
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

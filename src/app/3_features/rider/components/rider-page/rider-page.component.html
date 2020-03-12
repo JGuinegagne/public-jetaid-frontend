@@ -1,0 +1,20 @@
+<div *ngFor="let section of sections">
+  <div [ngSwitch]="section.sectionModule">
+
+    <app-rider-dispatcher
+      *ngSwitchCase="'RIDERS'"
+      [definer]="section">
+    </app-rider-dispatcher>
+
+    <app-ride-dispatcher
+      *ngSwitchCase="'RIDES'"
+      [definer]="section">
+    </app-ride-dispatcher>
+
+    <app-common-dispatcher
+      *ngSwitchDefault
+      [definer]="section">
+    </app-common-dispatcher>
+    
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<div [ngSwitch]="definer.sectionClass">
+
+  <app-page-header
+    *ngSwitchCase="'HEADER'"
+    [definer]="this.definer"
+    [customLink]="this.target$ | async">
+  </app-page-header>
+
+  <app-task-list 
+    *ngSwitchCase="'USER_TASKS'"
+    [definer]="this.definer"
+    [tasks]="this.target$ | async"
+    [activeTaskIds]="this.target2$ | async">
+  </app-task-list>
+
+  <app-task-helpees-form
+    *ngSwitchCase="'TASK_HELPEES'"
+    [definer]="this.definer"
+    [task]="target$ | async"
+    [travelers]="target2$ | async">
+  </app-task-helpees-form>
+
+  <app-task-change-location
+    *ngSwitchCase="'TASK_LOC'"
+    [definer]="this.definer"
+    [task]="this.target$ | async">
+  </app-task-change-location>
+
+  <app-choice-list
+    *ngSwitchCase="'CHOICE_LIST'"
+    [options]="target$ | async"
+    [link]="target2$ | async"
+    (notifier)="handleChoice($event)">
+  </app-choice-list>
+
+  <app-task-validate-form
+    *ngSwitchCase="'TASK_VALIDATE'"
+    [task]="this.target$ | async"
+    [definer]="this.definer"
+    (notifier)="handleTaskChange($event)">
+  </app-task-validate-form>
+
+  <app-task-init-form
+    *ngSwitchCase="'TASK_INITIATE'"
+    [task]="this.target$ | async"
+    [definer]="this.definer">
+  </app-task-init-form>
+
+  <app-task-card
+    *ngSwitchCase="'TASK'"
+    [task]="this.target$ | async"
+    [definer]="this.definer"
+    [showDetails]="this.showTaskDetails()"
+    [editable]="this.editableTask()">
+  </app-task-card>
+
+  <app-password-confirm-card 
+    *ngSwitchCase="'PASSWORD_CONFIRM'"
+    [definer]="definer"
+    [incorrectPassword]="this.incorrectPassword"
+    (notifier)="this.handlePasswordConfirm($event)">
+  </app-password-confirm-card >
+
+  <div *ngSwitchCase="'NAVIGATE'">
+    <app-button-card
+      *ngIf="displayNavigationCard() | async"
+      [definer]="definer"
+      [link]="this.target$ | async">
+    </app-button-card>
+  </div>
+
+  <div *ngSwitchCase="'INLINE_LINK'">
+    <app-text-line-button
+      *ngIf="displayNavigationCard() | async"
+      [title]="definer.title"
+      [subTitle]="definer.subTitle"
+      [link]="this.target$ | async"
+      [spaced]="true">
+    </app-text-line-button>
+  </div>
+
+</div>
+

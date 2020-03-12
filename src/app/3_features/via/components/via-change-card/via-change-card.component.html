@@ -1,0 +1,243 @@
+<div  [formGroup]="form" 
+      class="card card-jetaid bg-transparent">
+
+    <div class="card-body">
+      <div [ngClass]="{
+        'row rounded-lg justify-content-between py-2': true,
+        'bg-translucid': !this.confirmed && !this.removed,
+        'bg-translucid-success': this.confirmed,
+        'bg-translucid-removed': this.removed
+      }">
+        <app-title-section 
+          [title]="title()" 
+          [subTitle]="subTitle()"
+          [iconRef]="iconRef()">
+        </app-title-section>
+
+        <div class="col-auto align-self-center my-sm-0 my-2 px-sm-2 px-2">
+          <div class="btn-group-vertical float-sm-right">
+            <button *ngIf="!this.removed && this.form.valid" 
+                    class="btn btn-info" 
+                    (click)="toggleConfirm()">
+              {{variableButtons('confirm')}}
+            </button>
+            <button *ngIf="!this.confirmed"
+                    class="btn btn-info btn-block" 
+                    (click)="toggleRemove()">
+              {{variableButtons('remove')}}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="this.formErrorMsgs.length > 0" 
+            class="row bg-translucid rounded-lg py-2 mt-2">
+
+        <div class="col-lg-2 col-md-4">
+          <strong class="text-center">{{header('error')}}</strong>
+        </div>
+
+        <div class="col-lg-10 col-md-8">
+          <div *ngFor="let errorMsg of this.formErrorMsgs" 
+          class="row">
+            <div class="col-12">
+              <p class="text-danger">{{errorMsg}}</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div *ngIf="this.showDetails" class="card-body">
+      <form [formGroup]="form" novalidate>
+
+        <div class="row bg-translucid px-0 pt-2 mt-2">
+          <div class="col-12">
+
+            <div class="form-group row">
+              <div class="col-sm-3 align-self-start">
+                <strong>{{header('depLoc')}}</strong>
+              </div>
+    
+              <div class="col-sm-6">
+                <app-airport-search 
+                  [header]="this.header('depAirport')"
+                  [placeholder]="this.placeholder('depAirport')"
+                  [errorMsg]="this.errorMsg('airport')"
+                  [searchMsg]="this.errorMsg('searching')"
+                  [initialCode]="this.initDepCode"
+                  (notifier)="this.handleDepAirportChange($event)">
+                </app-airport-search>
+              </div>
+    
+              <div class="col-sm-3">
+                <label for="depTerminal">{{header('depTerminal')}}</label>
+                <select class="form-control" formControlName="depTerminal" id="depTerminal">
+                  <option>{{EMPTY_LBL}}</option>
+                  <option *ngFor="let terminal of depTerminalList" value="{{terminal}}">
+                    {{terminal}}
+                  </option>
+                </select>
+              </div>
+            </div>
+    
+    
+            <div class="form-group row">
+              <div class="col-sm-3 align-self-center">
+                <strong>{{header('depDateTime')}}</strong>
+              </div>
+    
+              <div class="col-sm-4 align-self-center">
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" formControlName="depDate"
+                    ngbDatepicker #depDate="ngbDatepicker" id="depDate">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" (click)="depDate.toggle()" type="button">📅</button>
+                  </div>
+                </div>
+    
+                <div *ngIf="hasError('depDate')"class="invalid-feedback d-block">
+                  {{errorMsg('depDate')}}
+                </div>
+              </div>
+    
+              <div class="col-sm-5 align-self-center">
+                <div class="float-right">
+                  <ngb-timepicker 
+                    [meridian]="true"
+                    formControlName="depTime"
+                    id="depTime">
+                  </ngb-timepicker>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="row bg-translucid px-0 pt-2 mt-2">
+          <div class="col-12">
+
+            <div class="form-group row">
+              <div class="col-sm-3 align-self-start">
+                <strong>{{header('arrLoc')}}</strong>
+              </div>
+
+              <div class="col-sm-6">
+                <app-airport-search 
+                  [header]="this.header('arrAirport')"
+                  [placeholder]="this.placeholder('arrAirport')"
+                  [errorMsg]="this.errorMsg('airport')"
+                  [searchMsg]="this.errorMsg('searching')"
+                  [initialCode]="this.initArrCode"
+                  (notifier)="this.handleArrAirportChange($event)">
+                </app-airport-search>
+              </div>
+
+              <div class="col-sm-3">
+                <label for="arrTerminal">{{header('arrTerminal')}}</label>
+                <select class="form-control" formControlName="arrTerminal" id="arrTerminal">
+                  <option>{{EMPTY_LBL}}</option>
+                  <option *ngFor="let terminal of arrTerminalList" value="{{terminal}}">
+                    {{terminal}}
+                  </option>
+                </select>
+              </div> 
+            </div>
+
+
+            <div class="form-group row">
+              <div class="col-sm-3 align-self-center">
+                <strong>{{header('arrDateTime')}}</strong>
+              </div>
+
+              <div class="col-sm-4 align-self-center">
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" formControlName="arrDate"
+                    ngbDatepicker #arrDate="ngbDatepicker" id="arrDate">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" (click)="arrDate.toggle()" type="button">
+                      📅
+                    </button>
+                  </div>
+                </div>
+                <div *ngIf="hasError('arrDate')"
+                  class="invalid-feedback d-block">
+                  {{errorMsg('arrDate')}}
+                </div>
+              </div>
+              
+              <div class="col-sm-5 align-self-center">
+                <div class="float-right">
+                  <ngb-timepicker 
+                    [meridian]="true"
+                    formControlName="arrTime"
+                    id="arrTime">
+                  </ngb-timepicker>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row bg-translucid px-0 pt-2 mt-2">
+          <div class="col-12">
+
+            <div class="form-group row">
+              <div class="col-sm-3 align-self-start">
+                <strong>{{header('flight')}}</strong>
+              </div>
+
+              <div class="col-sm-6">
+                <app-airline-search 
+                  [definer]="this.definer"
+                  [initialCode]="this.initAirlineCode"
+                  (notifier)="this.handleAirlineChange($event)">
+                </app-airline-search>
+              </div>
+
+              <div class="col-sm-3">
+                <label for="flight-code">{{header('flightCode')}}</label>
+                <input class="form-control" type="text" formControlName="flightCode" 
+                  placeholder="{{placeholder('flightCode')}}" id="flight-code">
+                <div *ngIf="hasError('flightCode')"
+                  class="invalid-feedback d-block">
+                  {{errorMsg('flightCode')}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+       
+    <div *ngIf="this.showDetails" class="card-body">
+      <div class="row bg-translucid rounded-lg px-0">
+        <div class="col-sm-3">
+          <strong class="text-left">{{header('passengers')}}</strong>
+  
+          <div *ngIf="!this.confirmed && !this.removed">
+            <button class="btn btn-info" (click)="requestPaxChange()">
+              {{buttons('changePassengers')}}
+            </button>            
+          </div>
+        </div>
+  
+        <div class="col-sm-9 mt-md-0 mt-2">
+          <div class="row justify-items-start">
+            <div *ngFor="let pax of this.passengers" class="col-auto">
+              <app-traveler-section 
+                [traveler]="pax.traveler">
+              </app-traveler-section>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+</div>
+

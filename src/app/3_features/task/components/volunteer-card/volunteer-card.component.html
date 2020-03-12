@@ -1,0 +1,45 @@
+<div class="card card-jetaid bg-transparent">
+  <div class="card-body">
+    <div  class="row bg-translucid rounded-lg py-2"
+          (click)="this.toggleDetails()">
+
+      <div class="col-md-1 col-sm-2 col align-self-center text-info d-sm-block d-none">
+        <i class="material-icons md-48">person_pin</i>
+      </div>
+
+      <app-title-section 
+        [title]="title()" 
+        [subTitle]="subTitle()">
+      </app-title-section>
+
+      <div class="col align-self-center mt-sm-0 mt-2">
+        <div class="btn-group-vertical float-sm-right">
+          <button 
+            *ngIf="this.selectable && !this.activable" 
+            class="btn btn-info btn-block" 
+            (click)="select()">
+            {{button('select')}}
+          </button>
+          <button *ngIf="this.confirmed"
+                  class="btn btn-info" 
+                  (click)="toggleConfirm()">
+            {{variableButton('confirm')}}
+          </button>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+
+  <div *ngIf="this.showDetails" class="card-body">
+    <app-traveler-profile-section
+      [traveler]="this.traveler()"
+      [definer]="this.definer">
+    </app-traveler-profile-section>
+
+    <app-partial-via-section
+      [partialVia]="this.partialVia()"
+      [definer]="this.definer">
+    </app-partial-via-section>    
+  </div>
+</div>

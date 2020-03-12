@@ -1,0 +1,18 @@
+<div [ngSwitch]="definer.sectionModule">
+        
+  <app-home-dispatcher
+    *ngSwitchCase="'HOME'"
+    [definer]="definer">
+  </app-home-dispatcher>
+
+  <app-menu-dispatch 
+    *ngSwitchCase="'MENU'"
+    [definer]="definer">
+  </app-menu-dispatch>
+
+  <app-user-profile-dispatch
+    *ngSwitchCase="'USER_PROFILE'"
+    [definer]="definer">
+  </app-user-profile-dispatch>
+
+</div>

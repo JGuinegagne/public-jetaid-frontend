@@ -1,0 +1,133 @@
+<div [ngClass]="{
+  'card card-jetaid bg-transparent': true
+}">
+  <div class="card-body" (click)="toggleDetails()">
+    <div  *ngIf="this.selectable"
+          class="row py-1
+                align-items-start 
+                justify-content-between 
+                bg-translucid 
+                rounded-lg">
+      
+      <app-title-section 
+        [title]="title()" 
+        [subTitle]="subTitle()"
+        [iconRef]="iconRef()"
+        [noticeCount]="this.noticeCount()">
+      </app-title-section>
+
+      <div class="col-auto mt-2 my-sm-0 my-2 px-sm-0 px-2">
+        <div class="btn-group-vertical">
+          <button 
+            *ngIf="this.selectable" 
+            class="btn btn-info btn-block" 
+            (click)="select()">
+            {{button('select')}}
+          </button>
+        </div>         
+      </div>
+    </div>
+
+    <div class="row py-1 mt-2">
+      <div class="col-auto pl-0 pr-2">
+        <app-date-badge 
+          [date]="this.ride.date">
+        </app-date-badge>
+      </div>
+
+      <div class="col">
+        <app-ride-route-section 
+          [ride]="this.ride">
+        </app-ride-route-section>
+      </div>
+    </div>
+
+  </div>
+
+  <div *ngIf="this.showDetails" class="card-body mt-1">
+    <div class="row bg-translucid rounded-lg">
+      <div class="col">
+
+        <div class="row">
+          <div class="col-sm-3">
+            <strong>{{header('route')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            <div *ngFor="let line of this.ride.routeList()" class="d-block">
+              {{line}}
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-sm-3">
+            <strong>{{header('time')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            <div class="d-block">{{this.ride.inlineStartDateTime()}}</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row bg-translucid rounded-lg mt-1">
+      <div class="col-sm-3">
+        <strong>{{header('rideType')}}</strong>
+      </div>
+      <div class="col-sm-9">
+        <div class="d-block">{{this.ride.inlineType()}}</div>
+      </div>
+    </div>
+    
+    <div class="row bg-translucid rounded-lg mt-1">
+      <div class="col">
+
+        <div class="row mt-2 py-2">
+          <div class="col-sm-3">
+            <strong>{{header('riders')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            <div class="row justify-content-start">
+              <div *ngFor="let rider of this.ride.riders">
+                <app-traveler-section 
+                  [traveler]="rider.travelers[0]"
+                  [subCaption]="rider.statusCaption()"
+                  [link]="riderLink(rider)"
+                  [noticeCount]="riderNotices(rider)">
+                </app-traveler-section>
+              </div>
+            </div>      
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row bg-translucid rounded-lg mt-1">
+      <div class="col">
+
+        <div *ngIf="showApplicants()" class="row mt-2 py-2">
+          <div class="col-sm-3">
+            <strong>{{header('applicants')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            <div class="row justify-content-start">
+              <div *ngFor="let applicant of this.applicants()">
+                <app-traveler-section 
+                  [traveler]="applicant.rideMember.travelers[0]"
+                  [subCaption]="applicant.rideMember.statusCaption()"
+                  [link]="riderLink(applicant.rideMember)"
+                  [noticeCount]="riderNotices(applicant.rideMember)">
+                </app-traveler-section>
+              </div>
+            </div>      
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+

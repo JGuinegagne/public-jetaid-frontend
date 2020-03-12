@@ -1,0 +1,24 @@
+<div [ngSwitch]="definer.sectionClass">
+
+  <app-ride-list
+    *ngSwitchCase="'RIDES_LIST'"
+    [definer]="this.definer"
+    [rides]="this.target$ | async"
+    (notifier)="this.handleRideSelect($event)">
+  </app-ride-list>
+
+  <app-ride-member-form
+    *ngSwitchCase="'RIDE_MEMBER_FORM'"
+    [definer]="this.definer"
+    [extendedMember]="this.target$ | async"
+    (notifier)="this.handleMemberNotice($event)">
+  </app-ride-member-form>
+
+  <app-ride-card
+    *ngSwitchCase="'RIDE'"
+    [definer]="this.definer"
+    [ride]="this.target$ | async"
+    [selectable]="false">
+  </app-ride-card>
+
+</div>

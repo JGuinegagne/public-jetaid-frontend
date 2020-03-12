@@ -1,0 +1,11 @@
+<div>
+  <div *ngFor="let notice of displayNotices(); let i=index"
+      class="d-block">
+    <span class="badge badge-info">{{i+1}}</span>
+    <small class="text-info">  {{this.noticeText(notice)}}</small>
+  </div>
+  <div *ngIf="hasMoreNotices()" class="d-block">
+    <span class="badge badge-info">{{this.MAX_NOTICE_COUNT+1}}</span>
+    <small class="text-info">  ...</small>    
+  </div>
+</div>

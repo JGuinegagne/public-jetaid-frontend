@@ -1,0 +1,268 @@
+<div class="card card-jetaid bg-transparent" [formGroup]="form">
+  <div class="card-body">
+    <div class="row justify-content-between bg-translucid rounded-lg py-2">
+
+      <app-title-section 
+        [title]="title()" 
+        [subTitle]="subTitle()"
+        [iconRef]="iconRef()">
+      </app-title-section>
+
+      <div class="col-auto mt-2">
+        <div class="btn-group-vertical float-sm-right">
+          <button class="btn btn-info btn-block" 
+                  (click)="toggle()">
+                  {{button('toggle')}}
+          </button>
+          <button *ngIf="this.showConfirm()"
+                  class="btn btn-info btn-block" 
+                  (click)="confirm()" type="submit">
+                  {{button('confirm')}}
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <div *ngIf="this.showMap" class="card-body">
+    <div class="row bg-translucid rounded-lg py-2 mt-2">
+      <div class="col">
+        <app-google-map
+          [latitude]="latitude"
+          [longitude]="longitude"
+          [searchText]="this.formattedAddress"
+          [zoom]="zoom"
+          (notifier)="handleMapSearch($event)">
+        </app-google-map>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="this.showDetails" class="card-body">
+    <form [formGroup]="form" novalidate>
+
+      <div class="row bg-translucid rounded-lg py-2 mt-1">
+        <div class="col">
+
+          <div class="row">
+            <div class="col-12">
+              <h3>{{sectionTitle('addressBody')}}</h3>
+            </div>
+          </div>
+
+          <div [formGroup]="form.get('details')" >
+
+            <div class="form-group row">
+              <div class="col-sm-3 align-self-center">
+                <strong>{{header('street')}}</strong>
+              </div>
+
+              <div class="col-sm-3" >
+                <input class="form-control" type="text" formControlName="streetNumber" placeholder="1020">
+              </div>
+
+              <div class="col-sm-6">
+                <input class="form-control" type="text" formControlName="streetName" placeholder="Union Street">
+                <div *ngIf="hasError('street')"
+                  class="invalid-feedback d-block">
+                  {{errorMsg('street')}}
+                </div>
+              </div>
+            </div>
+
+
+            <div class="form-group row">
+              <div class="col-sm-3 align-self-center">
+                <strong>{{header('city')}}</strong>
+              </div>
+
+              <div class="col-sm-6" >
+                <input class="form-control" type="text" 
+                        formControlName="city" placeholder="">
+                <div *ngIf="hasError('city')"
+                  class="invalid-feedback d-block">
+                  {{errorMsg('city')}}
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <input class="form-control" type="text" 
+                        formControlName="state" placeholder="Union Street">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-sm-3 align-self-center">
+                <strong>{{header('country')}}</strong>
+              </div>
+
+              <div class="col-sm-9">
+                <input class="form-control" type="text" 
+                        formControlName="country" placeholder="United States">
+                <div *ngIf="hasError('country')"
+                  class="invalid-feedback d-block">
+                  {{errorMsg('country')}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row bg-translucid rounded-lg py-2 mt-1">
+        <div class="col">
+          <div class="row">
+            <div class="col-12">
+              <h3>{{sectionTitle('addressMarker')}}</h3>
+            </div>
+          </div>
+
+          <div [formGroup]="form.get('marker')" >
+
+            <div class="form-group row">
+              <div class="col-sm-3 align-self-center">
+                <strong>{{header('alias')}}</strong>
+              </div>
+
+              <div class="col-sm-9">
+                <input class="form-control" type="text" 
+                        formControlName="alias" placeholder="Home">
+                <div *ngIf="hasError('alias')"
+                  class="invalid-feedback d-block">
+                  {{errorMsg('alias')}}
+                </div>
+              </div>
+            </div>
+
+
+            <div class="form-group row">
+              <div class="col-sm-3 align-self-center">
+                <strong>{{header('addressType')}}</strong>
+              </div>
+
+              <div class="col-sm-9">
+                <select formControlName="addressType" class="form-control">
+                  <option>{{EMPTY_SELECT}}</option>
+                  <option *ngFor="let type of ADDRESS_TYPES" value="{{type}}">
+                    {{addressTypeLabel(type)}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row bg-translucid rounded-lg py-2 mt-1">
+        <div class="col">
+          <div class="row">
+            <div class="col-12">
+              <h3>{{sectionTitle('addressDetails')}}</h3>
+            </div>
+          </div>
+
+          <div [formGroup]="form.get('infos')">
+
+            <div class="form-group row">
+              <div class="col-sm-3 align-self-center">
+                <strong>{{header('buildingName')}}</strong>
+              </div>
+
+              <div class="col-sm-9">
+                <input class="form-control" type="text" 
+                        formControlName="buildingName" placeholder="If applicable">
+                <div *ngIf="hasError('buildingName')"
+                  class="invalid-feedback d-block">
+                  {{errorMsg('buildingName')}}
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-sm-3 align-self-center">
+                <strong>{{header('apartment')}}</strong>
+              </div>
+
+              <div class="col-sm-5" >
+                <input class="form-control" type="text" 
+                        formControlName="apartmentNumber" placeholder="Apt number">
+                <div *ngIf="hasError('apartment')"
+                  class="invalid-feedback d-block">
+                  {{errorMsg('apartment')}}
+                </div>
+              </div>
+
+              <div class="col-sm-4">
+                <input class="form-control" type="text" 
+                        formControlName="apartmentFloor" placeholder="Floor number">
+              </div>
+            </div>  
+            
+
+            <div class="form-group row">
+              <div class="col-sm-3 align-self-center">
+                <strong>{{header('postcode')}}</strong>
+              </div>
+
+              <div class="col-sm-9">
+                <input class="form-control" type="text" 
+                        formControlName="postcode" placeholder="">
+                <div *ngIf="hasError('postcode')"
+                  class="invalid-feedback d-block">
+                  {{errorMsg('postcode')}}
+                </div>
+              </div>
+            </div>
+
+
+            <div class="form-group row">
+              <div class="col-sm-3 align-self-center">
+                <strong>{{header('buildingDesc')}}</strong>
+              </div>
+
+              <div class="col-sm-9">
+                <input class="form-control" type="text" 
+                        formControlName="buildingDesc" placeholder="Hard to find?">
+                <div *ngIf="hasError('buildingDesc')"
+                  class="invalid-feedback d-block">
+                  {{errorMsg('buildingDesc')}}
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-sm-3 align-self-center">
+                <strong>{{header('accessDesc')}}</strong>
+              </div>
+
+              <div class="col-sm-9">
+                <input class="form-control" type="text" 
+                        formControlName="accessDesc" placeholder="Specific instructions?">
+                <div *ngIf="hasError('accessDesc')"
+                  class="invalid-feedback d-block">
+                  {{errorMsg('accessDesc')}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="form-group row justify-content-center bg-translucid rounded-lg py-2 mt-1">
+        <div class="btn-toolbar">
+          <button class="btn btn-primary btn-md btn-inline-block mr-2" 
+                  (click)="confirm()" type="submit">
+            {{button('confirm')}}
+          </button>
+          <button class="btn btn-secondary btn-md btn-inline-block" 
+                  (click)="cancel()">
+            {{button('cancel')}}
+          </button>
+        </div>
+      </div> -->
+
+    </form>
+  </div>
+</div>
+

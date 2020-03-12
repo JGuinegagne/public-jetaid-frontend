@@ -1,0 +1,27 @@
+<div>
+  <app-button-card
+    *ngIf="this.goodToGo"
+    [definer]="this.definer"
+    [link]="this.link"
+    (notifier)="handleConfirm($event)">
+  </app-button-card>
+
+  <app-message-section 
+    *ngIf="!this.goodToGo"
+    [definer]="this.definer"
+    [title]="definer.labels.msgTitle"
+    [subTitle]="definer.labels.msgText">
+  </app-message-section>
+
+  <app-location-change-card
+    [address]="this.riderAddress"
+    [definer]="this.definer"
+    [anchorLat]="this.rider.tempAirportLat"
+    [anchorLng]="this.rider.tempAirportLng"
+    [showMap]="true"
+    (notifier)="this.handleLocationNotice($event)">
+  </app-location-change-card>
+
+</div>
+
+

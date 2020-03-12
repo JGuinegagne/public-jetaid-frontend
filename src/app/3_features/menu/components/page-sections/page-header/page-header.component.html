@@ -1,0 +1,83 @@
+<div class="mb-2">  
+  <div class="container-fluid pb-2">
+    <div class="row align-items-center border-bottom border-soft">
+
+      <div *ngIf=!hasBackButton() class="col-auto align-self-center px-0">
+        <div [ngSwitch]="definer.sectionType">
+          <i *ngSwitchCase="'ICON_ACCOUNT'" class="material-icons-outlined md-48">account_circle</i>
+          <i *ngSwitchCase="'ICON_TRAVELER'" class="material-icons-outlined md-48">portrait</i>
+          <i *ngSwitchCase="'ICON_TASK'" class="material-icons-outlined md-48">people_outline</i>
+          <i *ngSwitchCase="'ICON_PLANE'" class="material-icons-outlined md-48">flight</i>
+          <i *ngSwitchCase="'ICON_TAKEOFF'" class="material-icons-outlined md-48">flight_takeoff</i>
+          <i *ngSwitchCase="'ICON_LAND'" class="material-icons-outlined md-48">flight_land</i>
+          <i *ngSwitchCase="'ICON_ADDRESS'" class="material-icons-outlined md-48">location_on</i>
+          <i *ngSwitchCase="'ICON_PHONE'" class="material-icons-outlined md-48">phone_android</i>
+          <i *ngSwitchCase="'ICON_EMAIL'" class="material-icons-outlined md-48">email</i>
+          <i *ngSwitchCase="'ICON_GEAR'" class="material-icons-outlined md-48">settings</i>
+          <i *ngSwitchCase="'ICON_LOGOUT'" class="material-icons-outlined md-48">exit_to_app</i>
+          <i *ngSwitchCase="'ICON_BIN'" class="material-icons-outlined md-48">delete</i>
+          <i *ngSwitchCase="'ICON_TAXI'" class="material-icons-outlined md-48">local_taxi</i>
+          <i *ngSwitchCase="'ICON_BED'" class="material-icons-outlined md-48">hotel</i>
+          <i *ngSwitchCase="'ICON_HOUSE'" class="material-icons-outlined md-48">house</i>
+          <i *ngSwitchCase="'ICON_HOUSE'" class="material-icons-outlined md-48">house</i>
+          <i *ngSwitchCase="'TRAVELER'" class="material-icons md-48">person</i>
+          <i *ngSwitchCase="'USER'" [ngClass]="{
+            'material-icons md-48': true,
+            'text-info': !!this.overrider,
+            'text-dark': !this.overrider
+          }">
+            account_circle
+          </i>
+          <i *ngSwitchDefault class="material-icons-outlined md-48">
+            flight_takeoff
+          </i>
+        </div>
+      </div>
+
+      <div *ngIf=hasBackButton() class="col-auto px-0">
+        <a class="text-decoration-none mx-0" id="back-link" (click)="back()">
+          <i class="material-icons-outlined md-48 px-0">
+            arrow_back
+          </i>
+        </a>
+      </div>
+      
+      <div class="col">
+        <h1 class="text-tagline text-muted font-weight-bold">{{this.title()}}</h1>
+      </div>
+
+    </div>
+  </div>
+
+  <div *ngIf="hasNotice()" 
+        [ngClass]="{
+          'card rounded-0 mt-4': true,
+          'border-danger text-danger': true
+        }">
+
+    <div class="card-body">
+      <div class="row align-items-start justify-content-start">
+        <div class="col-12 align-self-start">
+          <strong>{{this.noticeHead()}}</strong>
+        </div>
+      </div>
+
+      <div *ngFor="let text of this.noticeTexts()"
+            class="row align-items-center">
+
+        <span [ngClass]="{
+          'badge mx-3': true, 
+          'badge-danger': true
+        }">!</span>
+
+        <small>{{text}}</small>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+

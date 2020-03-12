@@ -1,0 +1,20 @@
+<div>
+  <app-button-card
+    *ngIf="this.goodToGo"
+    [definer]="definer"
+    [link]="this.link">
+  </app-button-card>
+
+  <app-message-section 
+    *ngIf="!this.goodToGo"
+    [definer]="this.definer"
+    [title]="definer.labels.msgTitle"
+    [subTitle]="definer.labels.msgText">
+  </app-message-section > 
+
+  <app-rider-init-card
+    [rider]="this.rider"
+    [definer]="this.definer"
+    (notifier)="this.handleRiderNotice($event)">
+  </app-rider-init-card>
+</div>

@@ -1,0 +1,20 @@
+<a routerLink="{{link()}}" class="text-decoration-none text-reset" id="link">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <i [ngClass]="{
+        'material-icons md-36 mr-2': true,
+        'text-info': this.hasUser,
+        'text-muted': !this.hasUser
+      }">
+        account_circle
+      </i>
+      
+      <div class="px-0 text-nowrap text-dark">
+        <small class="d-block">{{loggedMsg()}}</small>
+        <small class="font-weight-bolder font-italic d-block">{{userName()}}</small>
+      </div>
+    </div>
+  </div>
+</a>
+
+

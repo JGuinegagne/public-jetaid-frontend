@@ -1,0 +1,28 @@
+<div class="card card-jetaid bg-transparent">
+  <div class="card-body">
+
+    <div class="row align-items-center justify-content-center bg-translucid rounded-lg py-2">
+      <app-title-section 
+        [title]="title()" 
+        [subTitle]="this.subTitle()"
+        [iconRef]="this.iconRef()">
+      </app-title-section>
+    </div>
+  </div>
+
+  <div class="card-body mt-1">
+    <div class="form-group row align-items-center justify-content-center bg-translucid rounded-lg py-2">
+      <div class="btn-toolbar">
+        <button class="btn btn-info btn-md btn-inline-block mr-2" 
+                (click)="confirm()" type="submit">
+                {{confirmButtonTitle()}}
+        </button>
+        <button class="btn btn-info btn-md btn-inline-block" 
+                (click)="cancel()" type="reset">
+                {{cancelButtonTitle()}}
+        </button>
+      </div>
+    </div>
+  </div>
+  
+</div>

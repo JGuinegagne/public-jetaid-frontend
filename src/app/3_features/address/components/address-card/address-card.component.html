@@ -1,0 +1,127 @@
+<div class="card card-jetaid bg-transparent" (click)="toggleDetails()">
+  <div class="card-body">
+    <div class="row justify-content-between bg-translucid rounded-lg py-2">
+      <app-title-section 
+        [title]="title()" 
+        [subTitle]="subTitle()"
+        [iconRef]="iconRef()">
+      </app-title-section>
+
+
+      <div class="col-auto align-self-center mt-sm-0 mt-2">
+        <div class="btn-group-vertical">
+          <button *ngIf="this.editable" 
+                  class="btn btn-info btn-block" 
+                  (click)="notify()">
+                  {{buttons('edit')}}
+          </button>
+          <!-- <button class="btn btn-info btn-block" 
+                  (click)="toggleDetails()">
+                  {{variableButtons('expand')}}
+          </button> -->
+        </div> 
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="row bg-translucid rounded-lg py-2 mt-1">
+
+      <div class="col">
+        <div class="row">
+          <div class="col-12">
+            <h3>{{sectionTitles('addressBody')}}</h3>
+          </div>
+        </div>
+    
+        <div class="row">
+          <div class="col-sm-3">
+            <strong>{{headers('street')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            {{streetNumName()}}
+          </div>
+        </div>
+    
+        <div class="row">
+          <div class="col-sm-3">
+            <strong>{{headers('city')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            {{cityStateName()}}
+          </div>
+        </div>      
+      
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="this.showDetails" class="card-body">
+    <div class="row bg-translucid rounded-lg py-2 mt-1">
+      <div class="col">
+
+        <div class="row">
+          <div class="col-12">
+            <h3>{{sectionTitles('addressDetails')}}</h3>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-3">
+            <strong>{{headers('buildingName')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            {{this.buildingName()}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-3">
+            <strong>{{headers('apartmentIdentifier')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            {{this.apartmentIdentifier()}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-3">
+            <strong>{{headers('floorIdentifier')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            {{this.floorIdentifier()}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-3">
+            <strong>{{headers('postcode')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            {{this.postcode()}}
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-sm-3">
+            <strong>{{headers('buildingDesc')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            {{this.buildingDesc()}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-3">
+            <strong>{{headers('accessDesc')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            {{this.accessDesc()}}
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>

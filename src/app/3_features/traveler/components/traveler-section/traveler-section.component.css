@@ -1,0 +1,19 @@
+img#img-pax{
+  max-height: 72px;
+  max-width: 72px;
+}
+
+a#link:hover{
+  opacity: 0.8;
+}
+
+.item {
+  position:relative;
+  display:inline-block;
+}
+
+.notify-badge{
+  position: absolute;
+  right:-5px;
+  top:0px;
+}

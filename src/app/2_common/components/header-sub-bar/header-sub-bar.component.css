@@ -1,0 +1,9 @@
+#jetaid-logo {
+  max-height: 64px;
+}
+
+.dropup,.dropdown-toggle::after {
+  display:none;
+}
+
+

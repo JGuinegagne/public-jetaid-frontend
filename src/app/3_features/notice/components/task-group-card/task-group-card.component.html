@@ -1,0 +1,32 @@
+<div class="card card-jetaid bg-transparent my-1">
+  <div class="card-body">
+    <div class="row bg-translucid-notice rounded-0 py-0">
+
+      <a routerLink="{{group.link()}}" 
+        class="nav-link text-reset"
+        id="link">
+
+        <div *ngIf="this.group.hasHeader()" class="row align-items-center">
+          <div class="col align-self-center justify-content-start">
+            <strong class="text-info">{{group.header()}}</strong>
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col align-self-center justify-content-start">
+            <app-task-notice-list
+              [taskNotices]="group.taskNotices"
+              [membersMap]="this.membersMap">
+            </app-task-notice-list>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+  </div>
+</div>
+
+
+
+

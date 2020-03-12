@@ -1,0 +1,23 @@
+<div [ngClass]="{
+  'col border border-muted': true,
+  'bg-others-message rounded-top rounded-right': !this.ownMessage,
+  'bg-own-message rounded-top rounded-left': this.ownMessage
+  }">
+  <div class="mx-2">
+    <div class="row">
+      <strong *ngIf="!this.ownMessage"
+              class="text-info">
+        {{this.authorName()}}
+      </strong>
+    </div>
+
+    <div class="row">
+      <span class="mr-2 break-words">{{this.content()}}</span>
+      <span class="ml-auto">
+        <small class="text-muted">{{this.timeStamp()}}</small>
+      </span>
+
+    </div>
+
+  </div>
+</div>

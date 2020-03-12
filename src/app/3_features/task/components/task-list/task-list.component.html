@@ -1,0 +1,61 @@
+<div>
+  <div *ngIf="this.potentialTasks.length > 0" class="mb-5">
+
+    <app-collapse-section
+      [title]="header('potentialTasks')"
+      [collapsed]="this.potentialCollapsed"
+      (notifier)="togglePotentialCollapse($event)">
+    </app-collapse-section>
+
+    <div *ngIf="!this.potentialCollapsed">
+      <app-task-choose-card
+        *ngFor="let task of potentialTasks"
+        [task]="task"
+        [definer]="this.definer">
+      </app-task-choose-card>
+    </div>
+  </div>
+
+
+  <div *ngIf="this.viaTasks.length > 0" class="mb-5">
+    <app-collapse-section
+      [title]="header('viaTasks')"
+      [collapsed]="this.viaCollapsed"
+      (notifier)="toggleViaCollapse($event)">
+    </app-collapse-section>
+
+    <div *ngIf="!this.viaCollapsed">
+      <app-task-card
+        *ngFor="let task of viaTasks"
+        [task]="task"
+        [definer]="this.definer"
+        [editable]="this.editable"
+        [selectable]="this.selectable"
+        [ownTask]="this.ownTasks"
+        (notifier)="this.handleNotice($event)">
+      </app-task-card>
+    </div>
+  </div>
+
+
+  <div *ngIf="this.provisionalTasks.length > 0">
+    <app-collapse-section
+      [title]="header('provisionalTasks')"
+      [collapsed]="this.provisionalCollapsed"
+      (notifier)="toggleProvisionalCollapse($event)">
+    </app-collapse-section>
+
+    <div *ngIf="!this.provisionalCollapsed">  
+      <app-task-card
+        *ngFor="let task of provisionalTasks"
+        [task]="task"
+        [definer]="this.definer"
+        [editable]="this.editable"
+        [selectable]="this.selectable"
+        [ownTask]="this.ownTasks"
+        (notifier)="this.handleNotice($event)">
+      </app-task-card>
+    </div>
+  </div>
+
+<div>

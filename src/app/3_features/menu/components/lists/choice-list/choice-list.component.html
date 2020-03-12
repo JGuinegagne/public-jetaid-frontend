@@ -1,0 +1,10 @@
+<div>
+  <app-button-card
+    *ngFor="let definer of definers"
+    [definer]="definer"
+    [link]="definer.links.to ? link.concat([definer.links.to]) : link"
+    [value]="definer.links.value"
+    [spaced]="true"
+    (notifier)="this.handleClick($event)">
+  </app-button-card>
+</div>

@@ -1,0 +1,72 @@
+<nav class="navbar navbar-expand-sm bg-light navbar-shade" role="banner">
+  <div class="spacer"></div>
+  <div class="col-xl-8 col-lg-10 col-md-11 col-12">
+    <div class="row align-items-center">
+
+      <div class="navbar-nav justify-content-center">
+        <a class="navbar-brand" routerLink="/">
+          <img src="{{this.logo()}}" alt="jetaid-logo" class="img-fluid" id="jetaid-logo">
+        </a>
+      </div>
+  
+      <div class="navbar-nav">
+        <div class="nav-item" ngbDropdown display="dynamic" placement="bottom-left">
+          <a style="cursor: pointer" ngbDropdownToggle id="navbarDropdown" role="button">
+            ☰
+          </a>
+          <div ngbDropdownMenu aria-labelledby="navbarDropdown" class="dropdown-menu">
+            <a ngbDropdownItem 
+               routerLink="/"
+               (click)="$event.preventDefault()">
+               {{homeLabel()}}
+              </a>
+            <a *ngFor="let header of headers" 
+                ngbDropdownItem 
+                routerLink="{{link(header)}}"
+                (click)="$event.preventDefault()">
+                {{header}}
+            </a>
+          </div>
+        </div>
+      </div>
+  
+      
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-2">
+          <li *ngFor="let header of headers" 
+              class="nav-item mx-xl-3 mx-lg-2 mx-md-1 mx-0">
+
+            <a  class="nav-link text-reset nav-inactive" 
+                routerLink="{{link(header)}}"
+                routerLinkActive="nav-active">
+              <div>
+                {{header}}
+
+                <span *ngIf="this.noticeCounts[header]"
+                  class="badge badge-dark">
+                  {{this.noticeCounts[header]}}
+                </span>  
+             
+              </div>
+
+            </a>
+          </li>
+        </ul>
+      </div>
+  
+      <div class="navbar-nav ml-auto">
+        <app-login></app-login>
+      </div>
+  
+    </div>
+
+  </div>
+  <div class="spacer"></div>
+
+</nav>
+
+
+
+
+
+

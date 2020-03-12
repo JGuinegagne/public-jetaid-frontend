@@ -1,0 +1,70 @@
+<div [ngSwitch]="definer.sectionClass">
+
+  <app-page-header 
+    *ngSwitchCase="'HEADER'"
+    [definer]="definer"
+    [overrider]="target$ | async">
+  </app-page-header>
+
+  <div *ngSwitchCase="'INLINE_LINK'">
+    <app-text-line-button
+      *ngIf="displayCard() | async"
+      [title]="definer.title"
+      [subTitle]="definer.subTitle"
+      [link]="this.target$ | async"
+      [spaced]="true"
+      (notifier)="handleConfirm($event)">
+    </app-text-line-button>
+  </div>
+
+  <app-trip-list 
+    *ngSwitchCase="'USER_TRIPS'"
+    [definer]="this.definer"
+    [trips]="this.target$ | async">
+  </app-trip-list>
+
+  <app-select-traveler-form
+    *ngSwitchCase="'SELECT_TRAVELERS'"
+    [travelers]="this.target$ | async"
+    [selectedTravelerIds]="this.target2$ | async"
+    [definer]="this.definer"
+    (selectNotifier)="handleSelect($event)"
+    (confirmNotifier)="handleConfirm($event)">
+  </app-select-traveler-form>
+
+  <app-trip-change-list
+    *ngSwitchCase="'TRIP_FORM'"
+    [trip]="this.target$ | async"
+    [definer]="this.definer"
+    (notifier)="this.handleTripChange($event)">
+  </app-trip-change-list>
+
+  <app-trip-change-card
+    *ngSwitchCase="'TRIP_ALIAS'"
+    [trip]="this.target$ | async "
+    [definer]="this.definer"
+    (notifier)="this.handleAliasChange($event)">
+  </app-trip-change-card>
+
+  <app-trip-card
+    *ngSwitchCase="'TRIP'"
+    [trip]="this.target$ | async"
+    [definer]="this.definer"
+    [editable]="true"
+    [showDetails]="false"
+    (notifier)="this.handleEditRequest($event)">
+  </app-trip-card>
+
+  <app-password-confirm-card 
+    *ngSwitchCase="'PASSWORD_CONFIRM'"
+    [definer]="definer"
+    [incorrectPassword]="this.incorrectPassword"
+    (notifier)="this.handlePasswordConfirm($event)">
+  </app-password-confirm-card >
+
+  <app-message-section 
+    *ngSwitchCase="'MESSAGE'"
+    [definer]="definer">
+  </app-message-section> 
+
+</div>

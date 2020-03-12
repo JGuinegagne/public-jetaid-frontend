@@ -1,0 +1,50 @@
+<div [ngSwitch]="definer.sectionClass">
+
+  <app-task-notice-summary
+    *ngSwitchCase="'TASK_NOTICES'"
+    [definer]="this.definer"
+    [membersMap]="this.target$ | async"
+    [tasksMap]="this.target2$ | async">
+  </app-task-notice-summary>
+
+  <app-member-list 
+    *ngSwitchCase="'TASK_MEMBERS'"
+    [definer]="this.definer"
+    [members]="this.target$ | async"
+    [volunteers]="this.target2$ | async"
+    (memberNotifier)="this.handleMemberSelect($event)"
+    (volunteerNotifier)="this.handleVolunteerSelect($event)">
+  </app-member-list>
+
+  <app-member-form
+    *ngSwitchCase="'MEMBER_FORM'"
+    [definer]="this.definer"
+    [member]="this.target$ | async"
+    (notifier)="this.handleMemberNotice($event)">
+  </app-member-form>
+
+  <app-volunteer-form
+    *ngSwitchCase="'VOLUNTEER_FORM'"
+    [definer]="this.definer"
+    [volunteer]="this.target2$ | async"
+    (notifier)="this.handleVolunteerNotice($event)">
+  </app-volunteer-form>
+
+  <app-members-manage-form
+    *ngSwitchCase="'MEMBERS_MANAGE_FORM'"
+    [definer]="this.definer"
+    [members]="this.target$ | async"
+    (notifier)="handleManageNotice($event)">
+  </app-members-manage-form>
+
+  <app-member-card
+    *ngSwitchCase="'TASK_MEMBER'"
+    [definer]="this.definer"
+    [member]="this.target$ | async"
+    [selectable]="true"
+    (notifier)="handleMemberSelect($event)">
+  </app-member-card>
+
+
+
+</div>

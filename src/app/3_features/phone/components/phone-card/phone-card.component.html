@@ -1,0 +1,74 @@
+<div class="card card-jetaid bg-transparent" (click)="toggleDetails()">
+  <div class="card-body">
+    <div class="row justify-content-between bg-translucid rounded-lg py-2">
+
+      <app-title-section 
+        [title]="title()" 
+        [subTitle]="subTitle()"
+        [iconRef]="iconRef()">
+      </app-title-section>
+
+      <div class="col-auto align-self-center mt-sm-0 mt-2">
+        <div class="btn-group-vertical">
+          <button 
+            *ngIf="this.editable" 
+            class="btn btn-info btn-block" 
+            (click)="notify()">
+            {{buttons('edit')}}
+          </button>
+          <!-- <button 
+            class="btn btn-info btn-block" 
+            (click)="toggleDetails()">
+            {{variableButtons('expand')}}
+          </button> -->
+        </div> 
+      </div>
+      
+    </div>
+  </div>
+
+  <div *ngIf="this.showDetails" class="card-body">
+    <div class="row rounded-lg bg-translucid py-2 mt-1">
+      <div class="col">
+        <div class="row">
+          <div class="col-12">
+            <h3>{{sectionTitles('phoneBody')}}</h3>
+          </div>
+        </div>
+    
+        <div class="row">
+          <div class="col-sm-3">
+            <strong>{{headers('voice')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            {{voiceDesc()}}
+          </div>
+        </div>
+    
+        <div class="row">
+          <div class="col-sm-3">
+            <strong>{{headers('data')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            {{dataDesc()}}
+          </div>
+        </div>
+    
+        <div class="row">
+          <div class="col-sm-3">
+            <strong>{{headers('text')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            {{textDesc()}}
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+
+  </div>
+
+</div>
+

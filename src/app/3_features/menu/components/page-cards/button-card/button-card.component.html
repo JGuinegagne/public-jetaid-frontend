@@ -1,0 +1,39 @@
+<div [ngClass]="{
+  'card card-jetaid bg-transparent': true,
+  'mb-4': spaced
+}">
+  <div class="card-body">
+    <a routerLink="{{this.link}}" 
+        (click)="this.notify()" 
+        class="text-decoration-none text-reset"
+        id="link">
+
+      <div class="row align-items-center rounded-lg border border-soft py-2">
+
+        <div  [ngSwitch]="definer.sectionType" 
+              class="col-auto align-self-center mr-2 text-info">
+          <i *ngSwitchCase="'ICON_PLANE'" class="material-icons-outlined md-48">flight</i>
+          <i *ngSwitchCase="'ICON_TAKEOFF'" class="material-icons-outlined md-48">flight_takeoff</i>
+          <i *ngSwitchCase="'ICON_LAND'" class="material-icons-outlined md-48">flight_land</i>
+          <i *ngSwitchCase="'ICON_HOME'" class="material-icons-outlined md-48">house</i>
+          <i *ngSwitchCase="'ICON_TASK'" class="material-icons-outlined md-48">people_outline</i>
+          <i *ngSwitchCase="'ICON_TAXI'" class="material-icons-outlined md-48">local_taxi</i>
+          <i *ngSwitchCase="'ICON_CAR'" class="material-icons-outlined md-48">directions_car</i>
+          <i *ngSwitchCase="'ICON_JOIN'" class="material-icons-outlined md-48">emoji_people</i>
+          <i *ngSwitchCase="'ICON_MESSAGE'" class="material-icons-outlined md-48">insert_comment</i>
+          <i *ngSwitchCase="'ICON_ADD'" class="material-icons-outlined md-48 text-success">add</i>
+          <i *ngSwitchCase="'ICON_REMOVE'" class="material-icons-outlined md-48 text-danger">close</i>
+          <i *ngSwitchDefault class="material-icons-outlined md-48 text-success">done_outline</i>
+        </div>
+
+        <div class="col">
+          <h2 class="mb-1 text-lowercase">{{this.title()}}</h2>
+          <p  *ngIf="this.hasSubTitle()" class="text-muted my-1 text-lowercase">
+              <small>{{this.subTitle()}}</small>
+          </p>
+        </div>
+
+      </div>
+    </a> 
+  </div>
+</div>

@@ -1,0 +1,97 @@
+<div class="card card-jetaid bg-transparent">
+  <div class="card-body">
+
+    <div class="row align-items-center justify-content-center bg-translucid rounded-lg py-2">
+      <app-title-section 
+        [title]="title()" 
+        [subTitle]="this.subTitle()"
+        [iconRef]="this.iconRef()">
+      </app-title-section>
+    </div>
+  </div>
+
+  <div class="card-body mt-1" FormGroupName="login">
+    <form [formGroup]="registerGroup" (ngSubmit)="register()">
+
+      <div class="row align-items-center justify-content-center bg-translucid rounded-lg py-2">
+        <div class="col-lg-6 col-md-8 col-sm-10 col mx-2">
+
+          <div class="form-group row justify-content-center mt-2">
+            <div class="col">
+              <input class="form-control" 
+                      type="text"
+                      formControlName="email" 
+                      placeholder="{{placeholder('email')}}"
+                      autocomplete="email">
+
+              <div *ngIf="showEmailError()"
+                class="invalid-feedback d-block">
+                {{emailError()}}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row mt-2">
+            <div class="col">
+              <input class="form-control" 
+                      type="text"
+                      formControlName="publicName" 
+                      placeholder="{{placeholder('alias')}}"
+                      autocomplete="nickname">
+
+              <div *ngIf="showPublicNameError()"
+                class="invalid-feedback d-block">
+                {{publicNameError()}}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row mt-2">
+            <div class="col">
+              <input class="form-control" 
+                      type="password"
+                      formControlName="password" 
+                      placeholder="{{placeholder('password')}}"
+                      autocomplete="new-password">
+
+              <div *ngIf="showPasswordError()"
+                class="invalid-feedback d-block">
+                {{passwordError()}}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row mt-2">
+            <div class="col">
+              <input class="form-control" 
+                      type="password"
+                      formControlName="repeatPassword" 
+                      placeholder="{{placeholder('repeatPassword')}}">
+
+              <div *ngIf="showRepeatPasswordError()"
+                class="invalid-feedback d-block">
+                {{repeatPasswordError()}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row mt-1 justify-content-center align-items-center bg-translucid rounded-lg py-2">
+        <div class="btn-toolbar">
+          <button class="btn btn-info btn-md btn-inline-block mr-2" 
+                  type="submit">
+                  {{registerButtonTitle()}}
+          </button>
+
+          <button class="btn btn-info btn-md btn-inline-block" 
+                  (click)="toSignIn()">
+                  {{signInButtonTitle()}}
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+</div>

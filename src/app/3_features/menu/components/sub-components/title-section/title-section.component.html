@@ -1,0 +1,46 @@
+<div class="col align-self-center justify-content-start">
+  <div class="row align-items-center">
+    <div *ngIf="!!this.iconRef" class="col-auto text-info">
+      <div [ngSwitch]="this.iconRef">
+        <i *ngSwitchCase="'ICON_ACCOUNT'" class="material-icons-outlined md-48">account_circle</i>
+        <i *ngSwitchCase="'ICON_TRAVELER'" class="material-icons-outlined md-48">portrait</i>
+        <i *ngSwitchCase="'ICON_ADDRESS'" class="material-icons-outlined md-48">location_on</i>
+        <i *ngSwitchCase="'ICON_BIN'" class="material-icons-outlined md-48">delete</i>
+        <i *ngSwitchCase="'ICON_LOGOUT'" class="material-icons-outlined md-48">exit_to_app</i>
+        <i *ngSwitchCase="'ICON_BED'" class="material-icons-outlined md-48">hotel</i>
+        <i *ngSwitchCase="'ICON_HOUSE'" class="material-icons md-48">house</i>
+        <i *ngSwitchCase="'ICON_PHONE'" class="material-icons-outlined md-48">phone_android</i>
+        <i *ngSwitchCase="'ICON_EMAIL'" class="material-icons md-48">alternate_email</i>
+        <i *ngSwitchCase="'ICON_TRAVELER_PIN'" class="material-icons md-48">person_pin</i>
+        <i *ngSwitchCase="'ICON_TAKEOFF'" class="material-icons-outlined md-48">flight_takeoff</i>
+        <i *ngSwitchCase="'ICON_TASK'" class="material-icons-outlined md-48">people_outline</i>
+        <i *ngSwitchCase="'ICON_TAXI'" class="material-icons-outlined md-48">local_taxi</i>
+        <i *ngSwitchCase="'ICON_CAR'" class="material-icons-outlined md-48">directions_car</i>
+        <i *ngSwitchCase="'ICON_LABEL'" class="material-icons-outlined md-48">insert_comment</i>
+        <i *ngSwitchCase="'ICON_SEAT'" class="material-icons-outlined md-48">airline_seat_recline_normal</i>
+        <i *ngSwitchCase="'ICON_LUGGAGE'" class="material-icons-outlined md-48">work</i>
+        <i *ngSwitchCase="'ICON_LOCK'" class="material-icons-outlined md-48">lock</i>
+        <i *ngSwitchDefault class="material-icons-outlined md-48">emoji_objects</i>
+      </div>
+    </div>
+
+    <div *ngIf="!!this.title" class="col">
+      <h2>
+        <span [ngClass]="{'text-truncate': this.truncate}">
+          {{title}}
+        </span> 
+        <span *ngIf="this.noticeCount > 0"
+          class="badge badge-info">
+          {{this.noticeCount}}
+        </span>
+      </h2>
+    
+      <p *ngIf="subTitle" [ngClass]="{
+        'text-truncate': this.truncate,
+        'text-muted font-weight-bold': true
+      }">
+        {{subTitle}}
+      </p>
+    </div>
+  </div>
+</div>

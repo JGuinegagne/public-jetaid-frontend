@@ -1,0 +1,90 @@
+<div class="card bg-transparent">
+  <div [ngClass]="{'card-header': true, 'success': this.confirmed}">
+    <div class="row">
+
+      <app-title-section 
+        [title]="title()" 
+        [subTitle]="subTitle()">
+      </app-title-section>
+
+      <div class="col align-self-center mt-sm-0 mt-2">
+        <div class="btn-group-vertical float-sm-right">
+          <button 
+            class="btn btn-info btn-block" 
+            (click)="toggleMap()">
+            {{variableButton('showMap')}}
+          </button>
+          <button 
+            *ngIf="this.confirmed || (this.showMap && this.showResult)" 
+            class="btn btn-info btn-block" 
+            (click)="toggleConfirm()">
+            {{variableButton('confirm')}}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="this.outOfBounds" class="row">
+      <div class="col-lg-2 col-md-4">
+        <strong class="text-center">{{header('error')}}</strong>
+      </div>
+
+      <div class="col-lg-10 col-md-8">
+        <p class="text-danger">{{errorMsg('bounds')}}</p> 
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="this.showMap" class="card-body">
+    <app-google-map
+      [latitude]="latitude"
+      [longitude]="longitude"
+      [zoom]="zoom"
+      [searchText]="this.formattedAddress"
+      (notifier)="handleMapSearch($event)"
+      #googleMap>
+    </app-google-map>
+    <hr>
+
+    <div *ngIf="this.showResult && this.showMap">
+      <div class="row rounded-lg bg-translucid">
+        <div class="col">
+          <div class="row">
+            <div class="col-12">
+              <h3>{{header('address')}}</h3>
+            </div>
+          </div>
+      
+          <div class="row">
+            <div class="col-sm-3 align-self-center">
+              <strong>{{header('street')}}</strong>
+            </div>
+            <div class="col-sm-9">
+              <p>{{this.address.inlineStreet()}}</p>
+            </div>
+          </div>
+      
+          <div class="row">
+            <div class="col-sm-3 align-self-center">
+              <strong>{{header('city')}}</strong>
+            </div>
+            <div class="col-sm-9">
+              <p>{{this.address.inlineCity()}}</p>
+            </div>
+          </div>
+      
+          <div class="row">
+            <div class="col-sm-3 align-self-center">
+              <strong>{{header('country')}}</strong>
+            </div>
+            <div class="col-sm-9">
+              <p>{{this.address.inlineCountry()}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

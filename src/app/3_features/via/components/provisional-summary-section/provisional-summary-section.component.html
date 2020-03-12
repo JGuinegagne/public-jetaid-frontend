@@ -1,0 +1,33 @@
+<div class="row bg-translucid rounded-lg h-100">
+  <div class="col-sm-2 col-auto mr-sm-0 mr-2 ml-2 my-2">
+    <div  *ngFor="let traveler of this.travelers"
+          class="row align-items-center text-capitalize text-nowrap">
+      <strong>{{traveler.title()}}</strong>
+    </div>
+  </div>
+
+  <div class="col my-2">
+    <div class="row justify-content-start text-uppercase">
+      <div class="col-auto pl-0 pr-sm-0 pr-2">
+        <div  *ngFor="let airport of this.depAirports"
+              class="font-weight-bold text-nowrap d-block">
+          {{airport.shortTitle()}}
+        </div>
+      </div>
+
+      <div class="col-auto d-sm-flex d-none">
+        <i class="material-icons font-weight-bold">arrow_forward</i>
+      </div>
+
+      <div class="col pl-0">
+        <div  *ngFor="let airport of this.arrAirports"
+              class="font-weight-bold text-nowrap d-block">
+          {{airport.shortTitle()}}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+

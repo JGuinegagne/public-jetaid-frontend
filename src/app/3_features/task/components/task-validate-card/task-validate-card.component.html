@@ -1,0 +1,320 @@
+<div class="card card-jetaid bg-transparent">
+
+  <div class="card-body">
+    <div [ngClass]="{
+      'row justify-content-between rounded-lg py-2': true,
+      'bg-translucid': !this.confirmed,
+      'bg-translucid-success': this.confirmed
+    }">
+      <app-title-section 
+        [title]="title()" 
+        [subTitle]="subTitle()"
+        [iconRef]="iconRef()">
+      </app-title-section>
+
+      <div class="col-auto align-self-start mt-sm-0 mt-2">
+        <div class="btn-group-vertical float-sm-right">
+          <button *ngIf="this.form.valid" 
+                  class="btn btn-info" 
+                  (click)="toggleConfirm()">
+            {{variableButtons('confirm')}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!this.confirmed" class="card-body">
+    <form [formGroup]="form" novalidate>
+
+      <div  *ngIf="this.showDefineLink()" 
+            class="form-group row bg-translucid rounded-lg mt-1 py-2">
+            
+        <div class="col-sm-3 align-self-start">
+          <strong>{{header('provisionalAirports')}}</strong>
+
+          <button class="btn btn-info" (click)="requestDefine()">
+            {{buttons('changeDefine')}}
+          </button>            
+        </div>
+
+        <div class="col-sm-9" >
+          <div *ngFor="let airport of this.depAirports; let i = index">
+
+            <label *ngIf="i === 0"for="depAirport0">
+              {{header('depAirports')}}
+            </label>
+            <input class="form-control"
+                  [value]="airport.fullTitle()"
+                  id="`depAirport${i}`"
+                  disabled>
+          </div>
+
+          <div class="mt-3"></div>
+
+          <div *ngFor="let airport of this.arrAirports; let i = index">
+            <label *ngIf="i === 0" for="arrAirport0">
+              {{header('arrAirports')}}
+            </label>
+            <input class="form-control"
+                  [value]="airport.fullTitle()"
+                  id="`arrAirport${i}`"
+                  disabled>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="this.showDefineLink()" 
+            class="row bg-translucid rounded-lg mt-1 py-2">
+
+        <div class="col-sm-3 align-self-start">
+          <strong>{{header('provisionalDates')}}</strong>
+
+          <button class="btn btn-info" (click)="requestDefine()">
+            {{buttons('changeDefine')}}
+          </button>     
+        </div>
+
+        <div class="col-sm-9" >
+          <div class="row">
+            <div class="col-sm-6 align-self-start">
+              <label for="depDate">{{header('earliestDate')}}</label>
+              <input class="form-control" 
+                      placeholder="yyyy-mm-dd" 
+                      formControlName="depDate"
+                      id="depDate">
+            </div>
+    
+            <div class="col-sm-6 align-self-start">
+              <label for="arrDate">{{header('latestDate')}}</label>
+              <input class="form-control" 
+                    placeholder="yyyy-mm-dd" 
+                    formControlName="arrDate"
+                    id="arrDate">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div *ngIf="this.showDefineLink()" 
+            class="row bg-translucid rounded-lg mt-1 py-2">
+
+        <div class="col-sm-3 align-self-start">
+          <strong>{{header('provisionalTimes')}}</strong>
+        </div>
+
+        <div class="col-sm-9" >
+
+          <div class="row">
+            <div class="col-sm-6 align-self-center">
+              <label for="depTime">{{header('earliestTime')}}</label>
+              <ngb-timepicker 
+                [meridian]="true"
+                formControlName="depTime"
+                id="depTime">
+              </ngb-timepicker>
+            </div>
+    
+            <div class="col-sm-6 align-self-center">
+              <label for="arrTime">{{header('latestTime')}}</label>
+              <ngb-timepicker 
+                [meridian]="true"
+                formControlName="arrTime"
+                id="arrTime">
+              </ngb-timepicker>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div *ngIf="!this.showDefineLink()" 
+            class="row bg-translucid rounded-lg mt-1 py-2">
+
+        <div class="col-12">
+
+          <div class="form-group row">
+            <div class="col-sm-3 align-self-center">
+              <strong>{{header('depAirport')}}</strong>
+            </div>
+            
+            <div class="col-sm-9">
+              <input
+                class="form-control"
+                [value]="this.depAirports[0].fullTitle()"
+                disabled>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-3 align-self-center">
+              <strong>{{header('depDateTime')}}</strong>
+            </div>
+    
+            <div class="col-sm-4 align-self-center">
+              <div class="input-group">
+                <input class="form-control" 
+                        placeholder="yyyy-mm-dd" 
+                        formControlName="depDate"
+                        ngbDatepicker 
+                        #formDepDate="ngbDatepicker" 
+                        id="depDate">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" 
+                          (click)="formDepDate.toggle()" 
+                          type="button">
+                    📅
+                  </button>
+                </div>
+              </div>
+            </div>
+    
+            <div class="col-sm-5 align-self-center">
+              <ngb-timepicker 
+                [meridian]="true"
+                formControlName="depTime"
+                id="depTime">
+              </ngb-timepicker>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div *ngIf="this.hasDepLoc()" 
+            class="form-group row bg-translucid rounded-lg mt-1 py-2">
+        <div class="col-sm-3 align-self-start">
+          <strong>{{header('depLoc')}}</strong>
+          <div *ngIf="!this.confirmed">
+            <button class="btn btn-info" (click)="requestDepLocChange()">
+              {{buttons('changeDepLoc')}}
+            </button>            
+          </div>
+        </div>
+
+        <div class="col-sm-9" *ngIf="!!this.depAddress">
+          <app-address-section [address]="this.depAddress">
+          </app-address-section>
+        </div>
+      </div>
+
+
+      <div *ngIf="!this.showDefineLink()" 
+        class="row bg-translucid rounded-lg mt-1 py-2">
+
+        <div class="col-12">
+
+          <div class="form-group row">
+            <div class="col-sm-3 align-self-center">
+              <strong>{{header('arrAirport')}}</strong>
+            </div>
+
+            <div class="col-sm-9">
+              <input
+                class="form-control"
+                [value]="this.arrAirports[0].fullTitle()"
+                disabled>
+            </div>
+          </div>
+
+
+          <div class="form-group row">
+            <div class="col-sm-3 align-self-center">
+              <strong>{{header('arrDateTime')}}</strong>
+            </div>
+    
+            <div class="col-sm-4 align-self-center">
+              <div class="input-group">
+                <input class="form-control" 
+                        placeholder="yyyy-mm-dd" 
+                        formControlName="arrDate"
+                        ngbDatepicker 
+                        #formArrDate="ngbDatepicker" 
+                        id="arrDate">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" 
+                          (click)="formArrDate.toggle()" 
+                          type="button">
+                    📅
+                  </button>
+                </div>
+              </div>
+            </div>
+    
+            <div class="col-sm-5 align-self-center">
+              <ngb-timepicker 
+                [meridian]="true"
+                formControlName="arrTime"
+                id="arrTime">
+              </ngb-timepicker>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div *ngIf="this.hasArrLoc()" 
+            class="form-group row bg-translucid rounded-lg mt-1 py-2">
+
+        <div class="col-sm-3 align-self-start">
+          <strong>{{header('arrLoc')}}</strong>
+          <div *ngIf="!this.confirmed">
+            <button class="btn btn-info" (click)="requestArrLocChange()">
+              {{buttons('changeArrLoc')}}
+            </button>            
+          </div>
+        </div>
+
+        <div class="col-sm-9" *ngIf="!!this.arrAddress">
+          <app-address-section 
+            [address]="this.arrAddress">
+          </app-address-section>
+        </div>
+      </div>
+
+      <div class="form-group row bg-translucid rounded-lg mt-1 py-2">
+        <div class="col-sm-3 align-self-start">
+          <strong>{{header('taskChoice')}}</strong>         
+        </div>
+
+        <div class="col-sm-9" >
+          <select class="form-control" formControlName="taskChoice" id="taskchoice">
+            <option *ngFor="let type of TASK_OPTION_VALUES; let i = index" value="{{type}}">
+              {{TASK_OPTION_LABELS[i]}}
+            </option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+  <div *ngIf="!this.confirmed" class="card-body">
+    <div class="row bg-translucid rounded-lg py-2">
+      <div class="col-sm-3">
+        <strong class="text-left">{{header('helpees')}}</strong>
+
+        <div *ngIf="!this.confirmed">
+          <button class="btn btn-info" (click)="requestHelpeesChange()">
+            {{buttons('changeHelpees')}}
+          </button>            
+        </div>
+      </div>
+
+      <div class="col-sm-9">
+        <div class="row py-2">
+          <div *ngFor="let helpee of this.helpees" class="col-auto">
+            <app-traveler-section 
+              [traveler]="helpee">
+            </app-traveler-section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

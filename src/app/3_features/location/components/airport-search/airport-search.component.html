@@ -1,0 +1,23 @@
+<div>
+  <label *ngIf="!!header" for="airport-search">{{header}}</label>
+  <input
+    id="airport-search"
+    type="text"
+    class="form-control"
+    placeholder="{{this.placeholder}}"
+    [ngbTypeahead]="search"
+    (selectItem)="handleSelect($event)"
+    (blur)="handleBlur(searchBar.value)"
+    #searchBar
+  />
+  <div *ngIf="this.invalid"
+    class="invalid-feedback d-block">
+    {{this.errorMsg}}
+  </div>
+  <div *ngIf="this.searching && !this.invalid"
+    class="valid-feedback d-block">
+    {{this.searchMsg}}
+  </div>
+
+</div>
+

@@ -1,0 +1,89 @@
+<div class="card card-jetaid bg-transparent">
+  <div class="card-body">
+    <div [ngClass]="{
+      'row justify-content-between rounded-lg py-2': true,
+      'bg-translucid': !this.confirmed,
+      'bg-translucid-success': this.confirmed
+    }">
+      <app-title-section 
+        [title]="title()" 
+        [subTitle]="subTitle()"
+        [iconRef]="iconRef()"
+        [noticeCount]="this.noticeCount()">
+      </app-title-section>
+
+      <div class="col-auto align-self-start mt-sm-0 mt-2">
+        <div class="btn-group-vertical float-sm-right">
+          <button *ngIf="this.confirmed || this.manageable" 
+                  class="btn btn-info" 
+                  (click)="toggleConfirm()">
+            {{variableButtons('confirm')}}
+          </button>
+          <button *ngIf="!this.confirmed && this.viewRide" 
+            class="btn btn-info" 
+            (click)="toDetails()">
+            {{buttons('details')}}
+          </button>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+
+
+  <div *ngIf="!this.confirmed" class="card-body">
+    <form [formGroup]="form" novalidate>
+
+      <div *ngIf="this.showStatus()" 
+            class="form-group row bg-translucid rounded-lg py-2 mt-1 mb-0">
+
+        <div class="col-12">
+          <div class= "form-group row">
+
+            <div class="col-sm-3 align-self-start">
+              <strong>{{header('status')}}</strong> 
+            </div>
+    
+            <div class="col-sm-9" >
+              <select *ngIf="this.manageable" 
+                      class="form-control" 
+                      formControlName="status" 
+                      id="status">
+                <option *ngFor="let opt of this.optionList" value="{{opt.value}}">
+                  {{opt.title}}
+                </option>
+              </select>
+    
+              <input *ngIf="!this.manageable"
+                      class="form-control"
+                      formControlName="status"
+                      id="status">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </form>
+
+    <app-single-route-section
+      [rideMember]="this.extendedMember.rideMember"
+      [definer]="this.definer">
+    </app-single-route-section>
+
+    <div class="row rounded-lg bg-translucid py-2 mt-1">
+      <div class="col-sm-3">
+        <strong>{{header('travelers')}}</strong>
+      </div>
+      <div class="col-sm-9">
+        <div class="row justify-content-start">
+          <div *ngFor="let traveler of this.travelers()">
+            <app-traveler-section 
+              [traveler]="traveler">
+            </app-traveler-section>
+          </div>
+        </div>      
+      </div>
+    </div>
+
+  </div>
+</div>

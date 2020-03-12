@@ -1,0 +1,45 @@
+<div class="card card-jetaid bg-transparent" [formGroup]="form">
+
+  <div class="card-body">
+    <div class="row align-items-center justify-content-between bg-translucid rounded-lg py-2">
+
+      <app-title-section 
+        [title]="title()" 
+        [subTitle]="subTitle()"
+        [iconRef]="this.iconRef()">
+      </app-title-section>
+
+      <div class="col-auto align-self-center my-sm-0 my-2 px-2">
+        <div class="btn-group-vertical float-sm-right">
+          <button class="btn btn-info btn-block" (click)="notify()">
+            {{buttons('alias')}}
+          </button>
+        </div>   
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card-body mt-1">
+    <form [formGroup]="form" FormGroupName="form" novalidate>
+        <div class="form-group row align-items-center bg-translucid rounded-lg py-2">
+          <div class="col-auto align-self-center ml-2">
+            <strong>{{header('alias')}}</strong>
+          </div>
+
+        <div class="col" style="min-width: 50%;">
+          <input class="form-control w-100" 
+                  type="text" 
+                  formControlName="alias" 
+                  placeholder="{{this.placeholder('alias')}}"
+                  id="alias">
+    
+          <div *ngIf="hasError('alias')"
+            class="invalid-feedback d-block">
+            {{errorMsg('alias')}}
+          </div>
+        </div> 
+      </div>
+    </form> 
+  </div>
+</div>

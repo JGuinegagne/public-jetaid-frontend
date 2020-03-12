@@ -1,0 +1,8 @@
+img#icon{
+  max-height: 35px;
+  max-width: 35px;
+}
+
+a#link:hover {
+  opacity: 0.8;
+}

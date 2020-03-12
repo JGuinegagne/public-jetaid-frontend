@@ -1,0 +1,23 @@
+<div class="card card-jetaid bg-transparent">
+  <div class="card-body">
+    <a routerLink="{{this.link}}" 
+        class="text-decoration-none text-reset"
+        id="link">
+
+      <div class="row mt-2">
+        <div class="col-auto pl-0 pr-2">
+          <app-date-badge 
+            [date]="this.task.depDate">
+          </app-date-badge>
+        </div>
+  
+        <div class="col">
+          <app-via-summary-section 
+            [viaLike]="this.task">
+          </app-via-summary-section>
+        </div>
+      </div>
+
+    </a> 
+  </div>
+</div>

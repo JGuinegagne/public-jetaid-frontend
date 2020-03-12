@@ -1,0 +1,60 @@
+<div>
+  <!-- SEATS -->
+  <div *ngIf="this.showSeats" class="row">
+    <div class="col-sm-3 col-auto">
+      <strong class="text-left">{{header('seat')}}</strong>
+
+      <div *ngIf="editable">
+        <div class="btn-toolbar-horizontal">
+          <button class="btn btn-info btn-sm mr-1" (click)="removeSeat()">
+            {{buttons('remove')}}
+          </button>
+          <button class="btn btn-info btn-sm" (click)="addSeat()">
+            {{buttons('add')}}
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col-sm-9 col">
+      <div class="row">
+        <div *ngFor="let seat of seats" class="col-auto text-info">
+          <i class="material-icons md-36 px-0">
+            airline_seat_recline_normal
+          </i>
+        </div>
+      </div>
+    </div>
+  </div>  
+
+
+  <!-- LUGGAGE -->
+  <div class="row">
+    <div class="col-sm-3 col-auto">
+      <strong class="text-left">{{header('luggage')}}</strong>
+
+      <div *ngIf="editable">
+        <div class="btn-toolbar-horizontal">
+          <button class="btn btn-info btn-sm mr-1" (click)="removeLuggage()">
+            {{buttons('remove')}}
+          </button>
+          <button class="btn btn-info btn-sm" (click)="addLuggage()">
+            {{buttons('add')}}
+          </button>  
+        </div>
+      </div>
+    </div>
+  
+    <div class="col-sm-9 col">
+      <div class="row">
+        <div *ngFor="let luggage of luggages" class="col-auto text-info">
+          <i class="material-icons md-36 px-0">
+            work
+          </i>
+        </div>
+      </div>
+    </div>  
+  </div>
+  
+</div>
+

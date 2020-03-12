@@ -1,0 +1,15 @@
+<div>
+  <div *ngFor="let message of messages" 
+      [ngClass]="{
+        'row my-1': true,
+        'justify-content-start': !userIsAuthor(message.ownMessage),
+        'justify-content-end': userIsAuthor(message.ownMessage)
+      }">
+
+    <app-message-item 
+      [message]="message"
+      [ownMessage]="userIsAuthor(message.ownMessage)">
+    </app-message-item>
+
+  </div>
+</div>

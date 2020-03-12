@@ -1,0 +1,35 @@
+<div class="card card-jetaid bg-transparent rounded-lg" (click)="this.toggleDetails()">
+  <div class="card-body">
+    <div [ngClass]="{
+      'row justify-content-between align-items-center rounded-lg py-2': true, 
+      'bg-translucid': !this.activated,
+      'bg-translucid-success': this.activated
+    }">
+
+      <app-title-section 
+        [title]="title()" 
+        [subTitle]="subTitle()"
+        [iconRef]="iconRef()">
+      </app-title-section>
+
+      <div class="col-auto mt-sm-0 mt-2">
+        <div class="btn-group-vertical">
+          <button *ngIf="this.editable" class="btn btn-info btn-block" (click)="notify()">
+            {{buttons('edit')}}
+          </button>
+          <button *ngIf="this.selectable" class="btn btn-info btn-block" (click)="toggleSelect()">
+            {{variableButton('select')}}
+          </button>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+
+  <div *ngIf="this.showDetails && this.hasInfo()" class="card-body">
+    <app-traveler-profile-section
+      [definer]="this.definer"
+      [traveler]="this.traveler">
+    </app-traveler-profile-section>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+.message-section {
+  display: flex;
+  width: 100%;
+  padding: 0 0 12px 0;
+}
+
+.message-section .icon-section {
+  display: inline-flex;
+  width: 30%;
+  justify-content: center;
+  align-items: center;
+  max-width: 64px;
+  margin-right: 12px;
+}
+
+.message-section .icon-section img {
+  max-width: 64px;
+  max-height: 64px;
+}
+
+.message-section .icon-section .button-img {
+  max-width: 64px;
+  max-height: 64px;
+}
+
+.message-section .text-section {
+  display: inline-block;
+  margin: 0px 12px;
+  width: 70%;
+  color: darkslategray;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.message-section .text-section h3{
+  display: inline-flex;
+  font-size: large;
+  font-weight: 500;
+  margin: 0px;
+}
+
+.message-section .text-section h4{
+  display: inline-flex;
+  color: lightslategrey;
+  font-size: normal;
+  font-weight: 400;
+  margin: 0px;
+}

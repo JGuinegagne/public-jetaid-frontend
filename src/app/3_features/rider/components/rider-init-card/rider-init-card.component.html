@@ -1,0 +1,89 @@
+<div [formGroup]="form" 
+      (ngSubmit)="toggleConfirm()" 
+      class="card card-jetaid bg-transparent">
+      
+  <div class="card-body">
+    <div [ngClass]="{
+      'row justify-content-between rounded-lg py-2': true,
+      'bg-translucid': !this.confirmed,
+      'bg-translucid-success': this.confirmed
+  }">
+      <app-title-section 
+        [title]="title()" 
+        [subTitle]="subTitle()"
+        [iconRef]="iconRef()"
+        [truncate]="true">
+      </app-title-section>
+
+      <div class="col-auto align-self-center mt-sm-0 mt-2">
+        <div class="btn-group-vertical float-sm-right">
+          <button *ngIf="this.showConfirm" 
+                  class="btn btn-info" 
+                  (click)="toggleConfirm()">
+            {{variableButtons('confirm')}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!this.confirmed" class="card-body my-1">
+    <form [formGroup]="form" novalidate>
+
+      <div class="row bg-translucid rounded-lg py-2">
+        <div class="col">
+
+          <div class="form-group row">
+            <div class="col-sm-3 align-self-start">
+              <h3>{{header('airport')}}</h3>
+            </div>
+    
+            <div class="col-sm-3">
+              <label for="toward">{{header('toward')}}</label>
+              <select class="form-control" formControlName="toward" id="toward">
+                <option *ngFor="let toward of TOWARDS" value="{{toward}}">
+                  {{towardLabel(toward)}}
+                </option>
+              </select>
+            </div>
+    
+            <div class="col-sm-6" >
+              <app-airport-search 
+                [header]="this.header('airport')"
+                [placeholder]="this.placeholder('airport')"
+                [errorMsg]="this.errorMsg('airport')"
+                [searchMsg]="this.errorMsg('searching')"
+                [initialCode]="this.initAirportCode"
+                (notifier)="this.handleAirportChange($event)">
+              </app-airport-search>
+            </div>
+          </div>
+    
+          <div class="form-group row">
+            <div class="col-sm-3 align-self-center">
+              <h3>{{header('startDate')}}</h3>
+            </div>
+    
+            <div class="col-sm-4 align-self-center">
+              <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd" formControlName="date"
+                  ngbDatepicker #date="ngbDatepicker" id="startDate">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" (click)="date.toggle()" type="button">
+                    📅
+                  </button>
+                </div>
+              </div>
+    
+              <div *ngIf="hasError('date')"class="invalid-feedback d-block">
+                {{errorMsg('startDate')}}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

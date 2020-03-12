@@ -1,0 +1,51 @@
+<div>
+  <app-collapse-section
+    *ngIf="this.hasTargets"
+    [title]="this.definer.title"
+    [collapsed]="this.collapsed"
+    (notifier)="toggleCollapse($event)">
+  </app-collapse-section>
+
+  <div 
+    *ngIf="this.collapsed || !this.hasTargets"
+    class="mb-2">
+  </div>
+
+  <div *ngIf="!this.collapsed && this.hasTargets" class="mb-1">
+    <div [ngSwitch]="this.infoType">
+      <div *ngSwitchCase="'address'">
+        <div *ngFor="let target of targets$ | async" class="mb-1">
+          <app-address-card 
+            [address]="target"
+            [editable]="true"
+            [definer]="this.definer"
+            (notifier)="this.editRequest($event)">
+          </app-address-card>
+        </div>
+      </div>
+    
+      <div *ngSwitchCase="'phone'">
+        <div *ngFor="let target of targets$ | async" class="mb-1">
+          <app-phone-card
+            [phone]="target"
+            [editable]="true"
+            [definer]="this.definer"
+            (notifier)="this.editRequest($event)">
+          </app-phone-card>
+        </div>
+      </div>
+    
+      <div *ngSwitchCase="'email'">
+        <div *ngFor="let target of targets$ | async" class="mb-1">
+          <app-email-card
+            [email]="target"
+            [editable]="true"
+            [definer]="this.definer"
+            (notifier)="this.editRequest($event)">
+          </app-email-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

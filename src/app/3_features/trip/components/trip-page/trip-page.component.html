@@ -1,0 +1,16 @@
+<div *ngFor="let section of sections">
+  <div [ngSwitch]="section.sectionModule">
+
+    <app-trip-dispatcher
+      *ngSwitchCase="'TRIPS'"
+      [definer]="section">
+    </app-trip-dispatcher>
+
+    <app-common-dispatcher
+      *ngSwitchDefault
+      [definer]="section">
+    </app-common-dispatcher>
+    
+  </div>
+</div>
+

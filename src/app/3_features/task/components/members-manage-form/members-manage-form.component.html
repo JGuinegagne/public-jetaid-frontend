@@ -1,0 +1,28 @@
+<div>
+  <app-button-card
+    *ngIf="this.readyToConfirm"
+    [definer]="definer"
+    [link]="this.link"
+    (notifier)="this.handleConfirm($event)">
+  </app-button-card>
+
+  <app-message-section 
+    *ngIf="!this.readyToConfirm"
+    [definer]="this.definer"
+    [title]="definer.labels.msgTitle"
+    [subTitle]="definer.labels.msgText">
+  </app-message-section > 
+
+  <app-member-manage-card
+    *ngFor="let helper of this.helpers"
+    [member]="helper"
+    [helpers]="this.helpers"
+    [definer]="this.definer"
+    [manageable]="true"
+    [confirmed]="this.confirmedHelpers[helper.taskPaxRef]"
+    [viewTask]="false"
+    (notifier)="this.handleHelperNotice($event)">
+  </app-member-manage-card>
+
+
+</div>

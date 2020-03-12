@@ -1,0 +1,198 @@
+<div class="card card-jetaid bg-transparent" [formGroup]="form" (ngSubmit)="confirm()">
+  <div class="card-body">
+    <div class="row bg-translucid justify-content-between rounded-lg py-2">
+      <app-title-section 
+        [title]="title()" 
+        [subTitle]="subTitle()"
+        [iconRef]="iconRef()">
+      </app-title-section>
+
+      <div class="col-auto mt-2">
+        <div class="btn-group-vertical float-sm-right">
+          <button *ngIf="showConfirm()"
+                  class="btn btn-info" 
+                  (click)="confirm()" 
+                  type="submit">
+                  {{buttonTitle('confirm')}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div FormGroupName="form" class="card-body">
+    <form [formGroup]="form" novalidate>
+
+      <div class="row bg-translucid rounded-lg py-2 mt-1">
+        <div class="col">
+
+          <div class="row">
+            <div class="col">
+              <h3>{{sectionTitle('privateInfo')}}</h3>
+            </div>
+          </div>
+          
+          <div class="form-group row">
+            <div class="col-sm-3 align-self-center">
+              <strong>{{header('alias')}}</strong>
+            </div>
+
+            <div class="col-sm-9 align-self-center">
+              <input class="form-control" type="text" formControlName="alias" placeholder="">
+              <div *ngIf="hasError('alias')"
+                class="invalid-feedback d-block">
+                {{errorMsg('alias')}}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-3 align-self-center">
+              <strong>{{header('firstName')}}</strong>
+            </div>
+
+            <div class="col-sm-9 align-self-center">
+              <input class="form-control" type="text" formControlName="firstName" placeholder="">
+              <div *ngIf="hasError('firstName')"
+                class="invalid-feedback d-block">
+                {{errorMsg('firstName')}}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-3 align-self-center">
+              <strong>{{header('lastName')}}</strong>
+            </div>
+
+            <div class="col-sm-9 align-self-center">
+              <input class="form-control" type="text" formControlName="lastName" placeholder="">
+              <div *ngIf="hasError('lastName')"
+                class="invalid-feedback d-block">
+                {{errorMsg('lastName')}}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-3 align-self-center">
+              <strong>{{header('middleName')}}</strong>
+            </div>
+
+            <div class="col-sm-9 align-self-center">
+              <input class="form-control" type="text" formControlName="middleName" placeholder="">
+              <div *ngIf="hasError('middleName')"
+                class="invalid-feedback d-block">
+                {{errorMsg('middleName')}}
+              </div>
+            </div>
+          </div>
+
+
+          <div class="form-group row">
+            <div class="col-sm-3 align-self-center">
+              <strong>{{header('email')}}</strong>
+            </div>
+
+            <div class="col-sm-9 align-self-center">
+              <input class="form-control" type="text" formControlName="email" placeholder="">
+              <div *ngIf="hasError('email')"
+                class="invalid-feedback d-block">
+                {{errorMsg('email')}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row bg-translucid rounded-lg py-2 mt-1">
+        <div class="col">
+
+          <div class="row">
+            <div class="col">
+              <h3>{{sectionTitle('publicInfo')}}</h3>
+            </div>
+          </div>
+
+
+          <div class="form-group row">
+            <div class="col-sm-3 align-self-center">
+              <strong>{{header('publicName')}}</strong>
+            </div>
+
+            <div class="col-sm-9 align-self-center">
+              <input class="form-control" type="text" formControlName="publicName" placeholder="">
+              <div *ngIf="hasError('publicName')"
+                class="invalid-feedback d-block">
+                {{errorMsg('publicName')}}
+              </div>
+            </div>
+          </div>
+
+
+          <div class="form-group row">
+            <div class="col-sm-3 align-self-center">
+              <strong>{{header('relation')}}</strong>
+            </div>
+
+            <div class="col-sm-9 align-self-center">
+              <select formControlName="relation" class="form-control">
+                <option *ngIf="!this.lockSelf">{{EMPTY_SELECT}}</option>
+                <option *ngFor="let relation of relations()" value="{{relation}}">
+                  {{relationLabel(relation)}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+
+          <div class="form-group row">
+            <div class="col-sm-3 align-self-center">
+              <strong>{{header('ageBracket')}}</strong>
+            </div>
+
+            <div class="col-sm-9 align-self-center">
+              <select formControlName="ageBracket" class="form-control">
+                <option>{{EMPTY_SELECT}}</option>
+                <option *ngFor="let bracket of AGE_BRACKETS" value="{{bracket}}">
+                  {{ageBracketLabel(bracket)}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+
+          <div class="form-group row">
+            <div class="col-sm-3 align-self-center">
+              <strong>{{header('gender')}}</strong>
+            </div>
+
+            <div class="col-sm-9 align-self-center">
+              <select formControlName="gender" class="form-control">
+                <option>{{EMPTY_SELECT}}</option>
+                <option *ngFor="let gender of GENDERS" value="{{gender}}">
+                  {{genderLabel(gender)}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <!-- <div class="form-group row mt-4 justify-content-center">
+            <div class="btn-toolbar">
+              <button class="btn btn-primary btn-md btn-inline-block mr-2" 
+                      (click)="confirm()" type="submit">
+                {{buttonTitle('confirm')}}
+              </button>
+              <button class="btn btn-secondary btn-md btn-inline-block" 
+                      (click)="cancel()">
+                {{buttonTitle('cancel')}}
+              </button>
+            </div>
+          </div> -->
+
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

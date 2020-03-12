@@ -1,0 +1,11 @@
+#back-button {
+  transform: rotate(180deg);
+  max-height: 84px;
+  max-width: 84px;
+}
+
+
+#back-link:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}

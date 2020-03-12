@@ -1,0 +1,24 @@
+<div>
+  <form [formGroup]="form" novalidate>
+    <div class="form-row align-items-end">
+      <div class="input-group">
+        <textarea 
+          type="text"
+          class="form-control rounded"
+          formControlName="content"
+          placeholder="{{this.placeholder()}}"
+          id="messageText">
+        </textarea>
+
+        <div class="input-group-append">
+          <button
+            type="submit"
+            class="btn btn-info"
+            (click)="writeMessage()">
+            ✉️
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

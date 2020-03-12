@@ -1,0 +1,99 @@
+<div class="card card-jetaid bg-transparent">
+  <div class="card-body">
+
+    <div class="row align-items-center justify-content-between bg-translucid rounded-lg py-2">
+      <app-title-section 
+        [title]="title()" 
+        [iconRef]="this.iconRef()">
+      </app-title-section>
+
+      <div class="col-auto align-self-center my-sm-0 my-2 px-2">
+        <div class="btn-group-vertical float-sm-right">
+          <button class="btn btn-info btn-md btn-inline-block mr-2" 
+                  type="submit"
+                  (click)="changeEmail()">
+            {{changeEmailButtonTitle()}}
+          </button>
+          <button class="btn btn-info btn-md btn-inline-block" 
+                  (click)="back()">
+            {{backButtonTitle()}}
+          </button>
+        </div>   
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body mt-1" FormGroupName="login">
+    <form [formGroup]="changeEmailGroup" (ngSubmit)="changeEmail()">
+
+      <div class="form-group row align-items-center bg-translucid rounded-lg py-2 mb-0">
+        <div class="col">
+
+          <div class="form-group row">
+            <div class="col-sm-3">
+              <strong>{{passwordHeader()}}</strong>
+            </div>
+    
+            <div class="col-sm-9">
+              <input class="form-control" type="password" 
+                      formControlName="password" placeholder="">
+              <div *ngIf="showPasswordError()"
+                class="invalid-feedback d-block">
+                {{passwordError()}}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row mt-2">
+            <div class="col-sm-3 align-self-center">
+              <strong>{{newEmailHeader()}}</strong>
+            </div>
+    
+            <div class="col-sm-9">
+              <input class="form-control" type="text" 
+                      formControlName="newEmail" placeholder="">
+              
+              <div *ngIf="showNewEmailError()"
+                class="invalid-feedback d-block">
+                {{newEmailError()}}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row mt-2">
+            <div class="col-sm-3 align-self-center">
+              <strong>{{repeatEmailHeader()}}</strong>
+            </div>
+    
+            <div class="col-sm-9">
+              <input class="form-control" type="text" 
+                      formControlName="repeatEmail" placeholder="">
+              
+              <div *ngIf="showRepeatEmailError()"
+                class="invalid-feedback d-block">
+                {{repeatEmailError()}}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- <div class="form-group row mt-1 justify-content-center align-items-center bg-translucid rounded-lg py-2">
+        <div class="btn-toolbar">
+
+          <button class="btn btn-primary btn-md btn-inline-block mr-2" 
+                  type="submit">
+            {{changeEmailButtonTitle()}}
+          </button>
+          <button class="btn btn-secondary btn-md btn-inline-block" 
+                  (click)="back()">
+            {{backButtonTitle()}}
+          </button>
+        </div>
+      </div> -->
+    </form>
+  </div>
+</div>
+
+

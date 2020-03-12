@@ -1,0 +1,46 @@
+<div class="row bg-translucid rounded-lg my-2">
+
+  <div class="col">
+    <div class="row">
+      <div class="col">
+        <h3>{{this.viaCaption}}</h3>
+      </div>
+    </div>
+
+    <div class="row py-2">
+      <div class="col-sm-3">
+        <strong>{{header('dep')}}</strong>
+      </div>
+      <div class="col-sm-9">
+        <div class="d-block">{{this.via.depAirport.fullTitle()}}</div>
+        <div class="d-block">{{this.via.depTerminal.fullTitle()}}</div>
+        <div class="d-block">{{this.via.inlineDepDateTime()}}</div>
+      </div>
+    </div>
+
+    <div class="row py-2">
+      <div class="col-sm-3">
+        <strong>{{header('arr')}}</strong>
+      </div>
+      <div class="col-sm-9">
+        <div class="d-block">{{this.via.arrAirport.fullTitle()}}</div>
+        <div class="d-block">{{this.via.arrTerminal.fullTitle()}}</div>
+        <div class="d-block">{{this.via.inlineArrDateTime()}}</div>
+      </div>
+    </div>
+
+    <div class="row py-2">
+      <div class="col-sm-3">
+        <strong>{{header('passengers')}}</strong>
+      </div>
+      <div class="col-sm-9">
+        <div class="row justify-content-start">
+          <div *ngFor="let pax of this.via.passengers">
+            <app-traveler-section [traveler]="pax.traveler">
+            </app-traveler-section>
+          </div>
+        </div>      
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="card card-jetaid bg-transparent">
+  <div class="card-body">
+    <div class="row rounded-lg bg-translucid py-2">
+
+      <app-title-section 
+        [title]="title()" 
+        [subTitle]="subTitle()">
+      </app-title-section>
+
+      <div class="col align-self-start mt-sm-0 mt-2">
+        <div class="btn-group-vertical float-sm-right">
+          <button *ngIf="this.fullConvoLink()" 
+            class="btn btn-info" 
+            (click)="toggleExpand()">
+            {{variableButtons('expand')}}
+          </button>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+
+  <div *ngIf="!this.confirmed" class="card-body">
+    <div *ngIf="this.hasMessages()" 
+          class="row justify-content-center rounded-lg bg-translucid mb-2 py-2">
+      <div class="col-xl-8 col-lg-10 col-md-11 col-sm-12">
+        <app-message-list 
+          [messages]="this.latestMessages"
+          [forSelf]="this.forSelf">
+        </app-message-list>
+      </div>
+    </div>
+
+    <div class="row justify-content-center rounded-lg bg-translucid py-2">
+      <div class="col">
+        <app-message-input
+          [definer]="this.definer"
+          [message]="this.newMessage"
+          (notifier)="this.handleNewMessage($event)">
+        </app-message-input>
+      </div>
+
+    </div>
+  </div>
+</div>

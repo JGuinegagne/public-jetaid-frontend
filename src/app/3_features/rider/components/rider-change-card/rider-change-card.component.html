@@ -1,0 +1,180 @@
+<div class="card card-jetaid bg-transparent">
+
+  <div class="card-body">
+    <div [ngClass]="{
+      'row justify-content-between py-2 rounded-lg': true,
+      'bg-translucid': !this.confirmed,
+      'bg-translucid-success': this.confirmed
+    }">
+      <app-title-section 
+        [title]="title()" 
+        [subTitle]="subTitle()"
+        [iconRef]="iconRef()"
+        [truncate]="true">
+      </app-title-section>
+
+
+      <div class="col-auto align-self-start mt-sm-0 mt-2 px-0">
+        <div class="btn-group-vertical float-sm-right">
+          <button *ngIf="this.form.valid" 
+                  class="btn btn-info" 
+                  (click)="toggleConfirm()">
+            {{variableButtons('confirm')}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="!this.confirmed" class="card-body">
+    <form [formGroup]="form" novalidate>
+
+      <div class="form-group row rounded-lg bg-translucid py-2 my-1">
+        <div class="col-sm-3 align-self-center">
+          <strong>{{header('dateTime')}}</strong>
+        </div>
+  
+        <div class="col-sm-4 align-self-center">
+          <div class="input-group">
+            <input class="form-control" 
+                    placeholder="yyyy-mm-dd" 
+                    formControlName="startDate"
+                    ngbDatepicker 
+                    #formDate="ngbDatepicker" 
+                    id="date">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" 
+                      (click)="formDate.toggle()" 
+                      type="button">
+                📅
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-5 align-self-center">
+          <ngb-timepicker 
+            [meridian]="true"
+            formControlName="startTime"
+            id="startTime">
+          </ngb-timepicker>
+        </div>
+      </div>
+
+      <div *ngIf="!this.toCity" class="form-group row rounded-lg bg-translucid py-2 my-1">
+        <div class="col-sm-3 align-self-start">
+          <strong>{{header('localLoc')}}</strong>
+          <div *ngIf="!this.confirmed">
+            <button class="btn btn-info" (click)="requestLocChange()">
+              {{buttons('changeLoc')}}
+            </button>            
+          </div>
+        </div>
+
+        <div class="col-sm-9" >
+          <app-address-section [address]="this.address">
+          </app-address-section>
+        </div>
+      </div>
+
+
+      <div class="form-group row rounded-lg bg-translucid py-2 my-1">
+        <div class="col-sm-3 align-self-start">
+          <strong>{{header('airportLoc')}}</strong>
+        </div>
+
+        <div class="col-sm-6" >
+          <div>
+            <label for="airport">{{header('airport')}}</label>
+            <input 
+              class="form-control" 
+              type="text"   
+              formControlName="airport" 
+              id="airport">
+          </div>
+        </div>
+
+        <div class="col-sm-3">
+          <label for="terminal">{{header('terminal')}}</label>
+          <select class="form-control" formControlName="terminal" id="terminal">
+            <option>{{EMPTY_LBL}}</option>
+            <option *ngFor="let terminal of terminalList" value="{{terminal}}">
+              {{terminal}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+
+      <div *ngIf="this.toCity" class="form-group row rounded-lg bg-translucid py-2 my-1">
+        <div class="col-sm-3 align-self-start">
+          <strong>{{header('localLoc')}}</strong>
+          <div *ngIf="!this.confirmed">
+            <button class="btn btn-info" (click)="requestLocChange()">
+              {{buttons('changeLoc')}}
+            </button>            
+          </div>
+        </div>
+
+        <div class="col-sm-9" >
+          <app-address-section [address]="this.address">
+          </app-address-section>
+        </div>
+      </div>
+
+
+      <div class="form-group row rounded-lg bg-translucid py-2 my-1">
+        <div class="col-sm-3 align-self-start">
+          <strong>{{header('rideChoice')}}</strong>         
+        </div>
+
+        <div class="col-sm-9" >
+          <select class="form-control" formControlName="rideChoice" id="ridechoice">
+            <option *ngFor="let choice of RIDE_OPTION_VALUES; let i = index" value="{{choice}}">
+              {{RIDE_OPTION_LABELS[i]}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+
+  <div *ngIf="!this.confirmed" class="card-body">
+    <div class="row rounded-lg bg-translucid py-2 my-1">
+      <div class="col-sm-3">
+        <strong class="text-left">{{header('members')}}</strong>
+
+        <div *ngIf="!this.confirmed">
+          <button class="btn btn-info" (click)="requestRiderChange()">
+            {{buttons('changeMembers')}}
+          </button>            
+        </div>
+      </div>
+
+      <div class="col-sm-9">
+        <div class="row">
+          <div *ngFor="let member of this.members" class="col-auto">
+            <app-traveler-section [traveler]="member.traveler">
+            </app-traveler-section>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row rounded-lg bg-translucid py-2 my-1">
+      <div class="col">
+        <app-rider-usage-section
+          [usage]="this.usage"
+          [definer]="this.definer"
+          [showSeats]="false"
+          [editable]="true">
+        </app-rider-usage-section>
+
+      </div>
+    </div>
+    
+  </div>
+</div>

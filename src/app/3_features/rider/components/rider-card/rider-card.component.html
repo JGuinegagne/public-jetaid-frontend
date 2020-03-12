@@ -1,0 +1,107 @@
+<div class="card card-jetaid bg-transparent">
+  <div class="card-body" (click)="this.toggleDetails()">
+    <div class="row justify-content-between rounded-lg bg-translucid my-2">
+      <app-title-section 
+        [title]="title()" 
+        [subTitle]="subTitle()"
+        [truncate]="true">
+      </app-title-section>
+
+      <div class="col-auto align-self-center mt-sm-0 mt-2 px-0">
+        <div class="btn-group-vertical float-sm-right">
+          <button 
+            *ngIf="this.editable" 
+            class="btn btn-info btn-block" 
+            (click)="edit()">
+            {{button('edit')}}
+          </button>
+          <button 
+            *ngIf="this.selectable && !this.editable" 
+            class="btn btn-info btn-block" 
+            (click)="toggleSelect()">
+            {{variableButton('select')}}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-1">
+      <div class="col-auto pl-0 pr-2">
+        <app-date-badge 
+          [date]="this.rider.date">
+        </app-date-badge>
+      </div>
+
+      <div class="col">
+        <app-bound-summary-section 
+          [rider]="this.rider">
+        </app-bound-summary-section>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="this.showDetails" class="card-body">
+
+    <div class="row rounded-lg bg-translucid py-2 mt-1">
+      <div class="col">
+        <div class="row">
+          <div class="col-sm-3">
+            <strong>{{header('start')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            <div *ngFor="let lbl of this.rider.fullStartLoc()" class="d-block">
+              {{lbl}}
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-sm-3">
+            <strong>{{header('end')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            <div *ngFor="let lbl of this.rider.fullEndLoc()" class="d-block">
+              {{lbl}}
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-sm-3">
+            <strong>{{header('rideChoice')}}</strong>
+          </div>
+          <div class="col-sm-9">
+            <div class="d-block">{{this.rider.inlineRideChoice()}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row rounded-lg bg-translucid py-2 my-1">
+      <div class="col-sm-3">
+        <strong>{{header('beneficiaries')}}</strong>
+      </div>
+      <div class="col-sm-9">
+        <div class="row justify-content-start">
+          <div *ngFor="let member of this.rider.travelers">
+            <app-traveler-section [traveler]="member.traveler">
+            </app-traveler-section>
+          </div>
+        </div>      
+      </div>
+    </div>
+
+    <div class="row rounded-lg bg-translucid py-2 my-1">
+      <div class="col">
+        <app-rider-usage-section
+          [usage]="this.usage"
+          [definer]="this.definer"
+          [showSeats]="false"
+          [editable]="false">
+        </app-rider-usage-section>
+
+      </div>
+    </div>
+
+  </div>
+</div>

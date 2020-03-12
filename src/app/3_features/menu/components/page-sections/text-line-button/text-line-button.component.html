@@ -1,0 +1,22 @@
+<div [ngClass]="{
+  'card link-jetaid bg-transparent': true,
+  'mb-4': this.spaced
+}">
+
+  <div class="card-body">
+    <div class="row align-items-center">
+      <a routerLink="{{this.link}}" 
+          (click)="this.notify()" 
+          class="text-decoration-none text-reset"
+          id="link">
+          <h2 class="text-tagline font-weight-bold text-muted mb-1 text-lowercase">{{this.title}}</h2>
+          <p  class="text-tagline text-muted my-1 text-lowercase">
+              <small>{{this.subTitle}}</small>
+          </p>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+

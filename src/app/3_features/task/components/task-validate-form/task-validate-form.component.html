@@ -1,0 +1,23 @@
+<div>
+  <app-button-card
+    *ngIf="this.goodToGo"
+    [definer]="definer"
+    [link]="this.link"
+    (notifier)="handleConfirm($event)">
+  </app-button-card>
+
+  <app-message-section 
+    *ngIf="!this.goodToGo"
+    [definer]="this.definer"
+    [title]="definer.labels.msgTitle"
+    [subTitle]="definer.labels.msgText">
+  </app-message-section > 
+
+  <div>
+    <app-task-validate-card
+      [task]="this.task"
+      [definer]="this.definer"
+      (notifier)="this.handleTaskNotice($event)">
+    </app-task-validate-card>
+  </div>
+</div>

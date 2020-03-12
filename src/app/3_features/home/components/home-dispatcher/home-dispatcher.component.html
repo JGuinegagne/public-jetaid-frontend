@@ -1,0 +1,6 @@
+<div [ngSwitch]="definer.sectionClass">
+  <app-task-notice-summary
+    *ngSwitchCase="'TASK_NOTICES'"
+    [definer]="this.definer">
+  </app-task-notice-summary>
+</div>

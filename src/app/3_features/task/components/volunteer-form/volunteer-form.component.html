@@ -1,0 +1,40 @@
+<div>
+  <app-button-card
+    *ngIf="this.readyToConfirm"
+    [definer]="definer"
+    [link]="this.link"
+    (notifier)="this.handleConfirm($event)">
+  </app-button-card>
+
+  <app-message-section 
+    *ngIf="!this.readyToConfirm"
+    [definer]="this.definer"
+    [title]="definer.labels.msgTitle"
+    [subTitle]="definer.labels.msgText">
+  </app-message-section > 
+
+  <app-choice-list
+    *ngIf="showChoices()"
+    [options]="volunteerOptions"
+    [link]="link"
+    (notifier)="handleChoice($event)">
+  </app-choice-list>
+
+  <app-volunteer-card
+    [volunteer]="this.volunteer"
+    [definer]="this.definer"
+    [selectable]="false"
+    [activable]="true"
+    [confirmed]="this.readyToConfirm"
+    (notifier)="this.handleVolunteerNotice($event)">
+  </app-volunteer-card>
+
+  <app-new-message-card
+    [definer]="this.definer"
+    [messages]="[]"
+    [newMessage]="this.volunteer.newMessage"
+    [confirmed]="this.readyToConfirm"
+    [forSelf]="this.forSelf"
+    (notifier)="this.handleMessageNotice($event)">
+  </app-new-message-card>
+</div>

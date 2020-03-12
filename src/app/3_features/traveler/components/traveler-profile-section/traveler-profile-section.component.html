@@ -1,0 +1,38 @@
+<div *ngIf="hasInfo()" class="row bg-translucid rounded-lg py-2 mt-1">
+  <div class="col">
+
+    <div class="row">
+      <div class="col-12">
+        <h3>{{header('profileInfo')}}</h3>
+      </div>
+    </div>
+
+    <div *ngIf="hasAgeBracketInfo()" class="row">
+      <div class="col-sm-3">
+        <strong>{{header('ageBracket')}}</strong>
+      </div>
+      <div class="col-sm-9">
+        {{ageBracketInfo()}}
+      </div>
+    </div>
+
+    <div *ngIf="hasGenderInfo()" class="row">
+      <div class="col-sm-3">
+        <strong>{{header('gender')}}</strong>
+      </div>
+      <div class="col-sm-9">
+        {{genderInfo()}}
+      </div>
+    </div>
+
+    <div *ngIf="hasRelationInfo()" class="row">
+      <div class="col-sm-3">
+        <strong>{{header('relation')}}</strong>
+      </div>
+      <div class="col-sm-9">
+        {{relationInfo()}}
+      </div>
+    </div>
+    
+  </div>
+</div>

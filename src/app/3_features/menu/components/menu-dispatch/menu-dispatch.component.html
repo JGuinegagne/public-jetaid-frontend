@@ -1,0 +1,91 @@
+<div [ngSwitch]="definer.sectionClass">
+
+  <app-page-header 
+    *ngSwitchCase="'HEADER'"
+    [definer]="definer"
+    [overrider]="overrider">
+  </app-page-header>
+
+  <app-menu-section 
+    *ngSwitchCase="'MENU'"
+    [definer]="definer"
+    [link]= "this.target$ | async"><
+  </app-menu-section>
+
+  <app-button-card 
+    *ngSwitchCase="'NAVIGATE'"
+    [definer]="definer"
+    [link]="this.target$ | async">
+  </app-button-card>
+
+  <app-text-line-button 
+    *ngSwitchCase="'INLINE_LINK'"
+    [title]="definer.title"
+    [subTitle]="definer.subTitle"
+    [link]="this.target$ | async"
+    [spaced]="this.applySpacing()">
+  </app-text-line-button>
+
+  <app-login-card 
+    *ngSwitchCase="'EMAIL_PASSWORD'"
+    [definer]="definer"
+    [incorrectPassword]="this.incorrectPassword"
+    [unknownEmail]="this.unknownEmail"
+    (notifier)="this.handleEmailPasswordConfirm($event)">
+  </app-login-card>
+
+  <app-register-card 
+    *ngSwitchCase="'SIGN_UP'"
+    [definer]="definer">
+  </app-register-card>
+
+  <app-confirm-card 
+    *ngSwitchCase="'CONFIRM'"
+    [definer]="definer"
+    (notifier)="this.handleConfirm($event)">
+  </app-confirm-card>
+
+  <app-change-password-card 
+    *ngSwitchCase="'CHANGE_PASSWORD'"
+    [definer]="definer">
+  </app-change-password-card >
+
+  <app-change-email-card 
+    *ngSwitchCase="'CHANGE_EMAIL'"
+    [definer]="definer">
+  </app-change-email-card >
+
+  <app-change-alias-card
+    *ngSwitchCase="'CHANGE_ALIAS'"
+    [definer]="definer"
+    [defaultAlias]="userPublicName() | async"
+    [maxChar]="8"
+    (notifier)="this.handleAliasChange($event)">
+  </app-change-alias-card>
+
+  <app-password-confirm-card 
+    *ngSwitchCase="'PASSWORD_CONFIRM'"
+    [definer]="definer"
+    [incorrectPassword]="this.incorrectPassword"
+    (notifier)="this.handlePasswordConfirm($event)">
+  </app-password-confirm-card >  
+
+  <app-message-section 
+    *ngSwitchCase="'MESSAGE'"
+    [definer]="definer">
+  </app-message-section>
+
+  <app-divider-section 
+    *ngSwitchCase="'DIVIDER'"
+    [title]="this.definer.title"
+    [subTitle]= "this.definer.subTitle"
+    [spacing]="this.applySpacing()">
+  </app-divider-section>
+
+  <app-user-card
+    *ngSwitchCase="'USER_CARD'"
+    [definer]="this.definer"
+    [user]="this.target$ | async">
+  </app-user-card>
+   
+</div>

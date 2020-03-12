@@ -1,0 +1,56 @@
+<div class="card card-jetaid bg-transparent">
+
+  <div class="card-body">
+    <div  class="row justify-content-between bg-translucid rounded-lg py-2"
+          (click)="this.toggleDetails()">
+
+      <app-title-section 
+        [title]="title()" 
+        [subTitle]="subTitle()"
+        [iconRef]="iconRef()"
+        [noticeCount]="this.noticeCount()">
+      </app-title-section>
+
+      <div class="col-auto align-self-center mt-sm-0 mt-2">
+        <div class="btn-group-vertical float-sm-right">
+          <button 
+            *ngIf="this.selectable" 
+            class="btn btn-info btn-block" 
+            (click)="select()">
+            {{button('select')}}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="this.hasNotices() && this.showDetails" 
+        class="row bg-translucid rounded-lg mt-1">
+      
+      <div class="col-sm-3">
+        <strong>{{header('notices')}}</strong>
+      </div>
+
+      <div class="col-sm-9">
+        <app-task-notice-list
+          [taskNotices]="this.memberNotices"
+          [membersMap]="this.membersMap">
+        </app-task-notice-list>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="this.showDetails" class="card-body">
+    <app-traveler-profile-section
+      [traveler]="this.traveler()"
+      [definer]="this.definer">
+    </app-traveler-profile-section>
+
+    <app-partial-via-section
+      [partialVia]="this.partialVia()"
+      [definer]="this.definer">
+    </app-partial-via-section>
+
+  </div>
+</div>
+

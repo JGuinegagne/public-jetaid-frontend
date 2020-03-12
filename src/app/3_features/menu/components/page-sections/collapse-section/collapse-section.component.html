@@ -1,0 +1,16 @@
+<div class="card link-jetaid bg-transparent">
+
+  <div class="card-body" (click)="toggleCollapse()">
+    <div class="row align-items-center text-collapse">
+      <h2 class="px-0 d-inline text-tagline font-weight-bold text-collapse">
+        {{this.title}}
+      </h2>
+
+      <span>
+        <i class="material-icons-outlined md-48">
+          {{this.collapsed ? 'expand_less' : 'expand_more'}}
+        </i>
+      </span>
+    </div>
+
+</div>

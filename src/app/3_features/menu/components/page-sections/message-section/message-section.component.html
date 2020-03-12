@@ -1,0 +1,21 @@
+<div class="card card-jetaid bg-transparent">
+  <div class="card-body">
+    <div class="row align-items-center rounded-lg border border-soft py-2">
+
+      <div  [ngSwitch]="definer.sectionType" 
+            class="col-auto align-self-center mr-2 text-muted">
+        <i *ngSwitchCase="'ICON_EMAIL'" class="material-icons md-48">alternate_email</i>
+        <i *ngSwitchCase="'ICON_LOCK'" class="material-icons-outlined md-48">lock</i>
+        <i *ngSwitchDefault class="material-icons-outlined md-48">emoji_objects</i>
+      </div>
+
+      <div class="col">
+        <h2 class="mb-1 text-lowercase">{{this.msgTitle()}}</h2>
+        <p  *ngIf="this.hasSubText()" class="text-muted my-1 text-lowercase">
+            <small>{{this.msgSubText()}}</small>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>

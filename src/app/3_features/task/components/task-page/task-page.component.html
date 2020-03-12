@@ -1,0 +1,20 @@
+<div *ngFor="let section of sections">
+  <div [ngSwitch]="section.sectionModule">
+
+    <app-task-dispatcher
+      *ngSwitchCase="'TASKS'"
+      [definer]="section">
+    </app-task-dispatcher>
+
+    <app-members-dispatcher
+      *ngSwitchCase="'TASKS_MEMBERS'"
+      [definer]="section">
+    </app-members-dispatcher>
+
+    <app-common-dispatcher
+      *ngSwitchDefault
+      [definer]="section">
+    </app-common-dispatcher>
+  
+  </div>
+</div>

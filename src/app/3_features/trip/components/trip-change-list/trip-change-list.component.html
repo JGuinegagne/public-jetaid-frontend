@@ -1,0 +1,33 @@
+<div>
+  <app-button-card
+    *ngIf="this.goodToGo"
+    [definer]="definer"
+    [link]="this.link$ | async"
+    (notifier)="handleConfirm($event)">
+  </app-button-card>
+
+  <app-message-section 
+    *ngIf="!this.goodToGo"
+    [definer]="this.definer"
+    [title]="definer.labels.msgTitle"
+    [subTitle]="definer.labels.msgText">
+  </app-message-section > 
+
+  <div>
+    <app-trip-change-card
+      [trip]="this.trip"
+      [definer]="this.definer"
+      (notifier)="this.handleTripNotice($event)">
+    </app-trip-change-card>
+  </div>
+
+  <div *ngFor="let via of this.trip.vias">
+    <app-via-change-card
+      [via]="via"
+      [name]="this.viaNames[via.stringOrdinal()]"
+      [preferredValues]="this.viaPreferences[via.stringOrdinal()]"
+      [definer]="this.definer"
+      (notifier)="this.handleViaNotice($event)">
+    </app-via-change-card>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div>
+  <app-collapse-section
+    *ngIf="hasTravelers() && this.showCollapse"
+    [title]="this.definer.title"
+    [collapsed]="this.collapsed"
+    (notifier)="toggleCollapse($event)">
+  </app-collapse-section>
+
+  <div 
+    *ngIf="this.collapsed || !hasTravelers()"
+    class="mb-2">
+  </div>
+
+  <div *ngIf="!this.collapsed && hasTravelers()">
+    <div *ngFor="let traveler of travelers" class="mb-1">
+      <app-traveler-card 
+        [traveler]="traveler"
+        [editable]="this.editable"
+        [selectable]="this.selectable"
+        [activated]="this.isActivated(traveler)"
+        [definer]="this.definer"
+        (clickMonitor)="this.handleNotice($event)">
+      </app-traveler-card>
+    </div>
+  </div>
+
+</div>
